@@ -3,12 +3,15 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import SearchBar from '@/components/SearchBar';
+import HeroSection from '@/components/HeroSection';
+import FeaturedCollections from '@/components/FeaturedCollections';
 import ArtifactCard from '@/components/ArtifactCard';
 import VirtualTourCard from '@/components/VirtualTourCard';
 import { Button } from '@/components/ui/button';
 import { featuredArtifacts, virtualTours, currentAuctions } from '@/data/mockData';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Cube3D } from 'lucide-react';
 
 const Index = () => {
   const [isRTL, setIsRTL] = useState(false);
@@ -24,27 +27,11 @@ const Index = () => {
     <div className={isRTL ? 'rtl' : ''}>
       <Navigation isRTL={isRTL} />
       
-      {/* Hero Section with Panoramic Header */}
-      <div className="panoramic-header" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1466442929976-97f336a657be?q=80&w=2834&auto=format&fit=crop')" }}>
-        <div className="relative z-10 h-full flex flex-col items-center justify-center text-white px-4">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 text-center animate-fade-in">
-            {isRTL ? 'بيتورا' : 'Pittura'}
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 text-center max-w-3xl animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            {isRTL 
-              ? 'استكشف تراث المملكة العربية السعودية الرقمي'
-              : 'Explore Saudi Arabia\'s Digital Heritage'
-            }
-          </p>
-          
-          <div className="w-full max-w-2xl animate-fade-in" style={{ animationDelay: '0.4s' }}>
-            <SearchBar 
-              placeholder={isRTL ? 'ابحث عن القطع الأثرية، المعارض، والمزيد...' : 'Search artifacts, exhibitions, and more...'}
-              isRTL={isRTL}
-            />
-          </div>
-        </div>
-      </div>
+      {/* Hero Section with Ambient Video */}
+      <HeroSection isRTL={isRTL} />
+      
+      {/* Featured Collections Section */}
+      <FeaturedCollections isRTL={isRTL} />
       
       {/* Featured Artifacts Section */}
       <section className="museum-container py-16">
@@ -60,11 +47,99 @@ const Index = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featuredArtifacts.map((artifact) => (
-            <div key={artifact.id} className="animate-slide-up">
+          {featuredArtifacts.map((artifact, index) => (
+            <motion.div 
+              key={artifact.id} 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
+            >
               <ArtifactCard artifact={artifact} isRTL={isRTL} />
-            </div>
+            </motion.div>
           ))}
+        </div>
+      </section>
+      
+      {/* Hologram Experience Section */}
+      <section className="py-20 bg-museum-blue/30 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5"></div>
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center opacity-10"></div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <div className="inline-block relative mb-4">
+              <Cube3D className="w-12 h-12 text-blue-500 mx-auto" />
+              <div className="absolute -inset-4 bg-blue-500/20 blur-xl rounded-full -z-10"></div>
+            </div>
+            
+            <h2 className="text-4xl font-bold mb-4">
+              {isRTL ? 'تجربة الهولوجرام الحصرية' : 'Exclusive Hologram Experience'}
+            </h2>
+            
+            <p className="text-lg text-muted-foreground mb-8">
+              {isRTL 
+                ? 'استكشف القطع الأثرية بطريقة لم يسبق لها مثيل مع تقنية الهولوجرام ثلاثية الأبعاد. شاهد التفاصيل الدقيقة وتفاعل مع التاريخ بطرق جديدة مذهلة.'
+                : 'Explore artifacts like never before with 3D holographic technology. See intricate details and interact with history in amazing new ways.'
+              }
+            </p>
+            
+            <div className="flex justify-center gap-4 flex-wrap">
+              <Button asChild className="bg-blue-500 hover:bg-blue-600 rounded-full px-6">
+                <Link to="/holograms">
+                  {isRTL ? 'استكشاف الهولوجرام' : 'Explore Holograms'}
+                </Link>
+              </Button>
+              
+              <Button asChild variant="outline" className="rounded-full px-6 border-blue-300">
+                <Link to="/how-it-works">
+                  {isRTL ? 'كيف تعمل؟' : 'How It Works'}
+                </Link>
+              </Button>
+            </div>
+          </div>
+          
+          <div className="hologram-preview relative max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl">
+            <div className="aspect-video bg-black relative">
+              <video
+                autoPlay
+                muted
+                loop
+                className="w-full h-full object-cover"
+              >
+                <source src="https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4" type="video/mp4" />
+              </video>
+              
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20"></div>
+              
+              <div className="absolute bottom-6 left-6 right-6 text-white">
+                <h3 className="text-2xl font-bold mb-2">
+                  {isRTL ? 'مجموعة الهولوجرام الملكية' : 'Royal Hologram Collection'}
+                </h3>
+                <p>
+                  {isRTL 
+                    ? 'تجربة تفاعلية ثلاثية الأبعاد للتحف الملكية النادرة'
+                    : '3D interactive experience of rare royal artifacts'
+                  }
+                </p>
+              </div>
+              
+              <div className="absolute top-4 right-4">
+                <Button asChild variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
+                  <Link to="/hologram/royal-collection">
+                    {isRTL ? 'تجربة الآن' : 'Experience Now'}
+                  </Link>
+                </Button>
+              </div>
+              
+              <div className="absolute inset-0 hologram-overlay pointer-events-none">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5"></div>
+                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-500/80 to-transparent hologram-scan"></div>
+                <div className="absolute inset-y-0 left-0 w-px bg-gradient-to-b from-transparent via-blue-500/80 to-transparent hologram-scan-vertical"></div>
+                <div className="absolute inset-y-0 right-0 w-px bg-gradient-to-b from-transparent via-blue-500/80 to-transparent hologram-scan-vertical" style={{ animationDelay: '1s' }}></div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
       
@@ -83,10 +158,16 @@ const Index = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {virtualTours.map((tour) => (
-              <div key={tour.id} className="animate-slide-up">
+            {virtualTours.map((tour, index) => (
+              <motion.div 
+                key={tour.id} 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
                 <VirtualTourCard tour={tour} isRTL={isRTL} />
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -111,7 +192,14 @@ const Index = () => {
             const daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
             
             return (
-              <div key={auction.id} className="glassmorphism-card animate-slide-up">
+              <motion.div 
+                key={auction.id} 
+                className="glassmorphism-card animate-slide-up"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
                 <div className="h-48 mb-4 overflow-hidden rounded-lg">
                   <img 
                     src={auction.imageUrl} 
@@ -146,7 +234,7 @@ const Index = () => {
                 <Button className="w-full mt-4 cta-button">
                   {isRTL ? 'المزايدة الآن' : 'Bid Now'}
                 </Button>
-              </div>
+              </motion.div>
             );
           })}
         </div>

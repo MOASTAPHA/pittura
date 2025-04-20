@@ -10,6 +10,9 @@ import ARViewer from "./pages/ARViewer";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
+import HologramExperience from "./pages/HologramExperience";
+import VirtualMuseum from "./pages/VirtualMuseum";
+import Auctions from "./pages/Auctions";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +28,11 @@ const App = () => (
           <Route path="/ar-viewer/:id" element={<ARViewer />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/holograms" element={<HologramExperience />} />
+          <Route path="/hologram/:id" element={<HologramExperience />} />
+          <Route path="/virtual-museum" element={<VirtualMuseum />} />
+          <Route path="/virtual-tour" element={<VirtualMuseum />} />
+          <Route path="/auctions" element={<Auctions />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
