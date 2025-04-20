@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
@@ -7,11 +6,12 @@ import HeroSection from '@/components/HeroSection';
 import FeaturedCollections from '@/components/FeaturedCollections';
 import ArtifactCard from '@/components/ArtifactCard';
 import VirtualTourCard from '@/components/VirtualTourCard';
+import ArtifactViewer3D from '@/components/ArtifactViewer3D';
 import { Button } from '@/components/ui/button';
 import { featuredArtifacts, virtualTours, currentAuctions } from '@/data/mockData';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Boxes } from 'lucide-react';
+import { Boxes, Library } from 'lucide-react';
 
 const Index = () => {
   const [isRTL, setIsRTL] = useState(false);
@@ -27,39 +27,81 @@ const Index = () => {
     <div className={isRTL ? 'rtl' : ''}>
       <Navigation isRTL={isRTL} />
       
-      {/* Hero Section with Ambient Video */}
+      {/* Hero Section with Ambient Video and 360 Panorama */}
       <HeroSection isRTL={isRTL} />
+      
+      {/* Featured Artifacts with 3D Interactive Viewer */}
+      <section className="bg-gradient-to-b from-black to-museum-blue/30 py-20 text-white">
+        <div className="museum-container">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold mb-4">
+              {isRTL ? 'اكتشف القطع الأثرية المميزة' : 'Discover Featured Artifacts'}
+            </h2>
+            <p className="text-lg text-white/70 max-w-3xl mx-auto">
+              {isRTL 
+                ? 'استكشف مجموعتنا من القطع الأثرية النادرة والتاريخية. يمكنك تدوير وتكبير القطع بتقنية ثلاثية الأبعاد.'
+                : 'Explore our collection of rare and historic artifacts. You can rotate and zoom the pieces in 3D.'
+              }
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            >
+              <ArtifactViewer3D 
+                modelUrl="/models/artifact_default.glb"
+                title={isRTL ? "إناء نبطي من العلا" : "Nabataean Vessel from Al-Ula"}
+                description={isRTL 
+                  ? "إناء فخاري يعود تاريخه للقرن الأول الميلادي، ويعكس مهارة الحرفيين النبطيين في صناعة الفخار."
+                  : "A ceramic vessel dating back to the 1st century CE, reflecting the craftsmanship of Nabataean potters."
+                }
+                isRTL={isRTL}
+              />
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="lg:col-span-2"
+            >
+              <div className="bg-museum-brown/30 backdrop-blur-sm border border-white/10 rounded-xl p-6 h-full">
+                <h3 className="text-2xl font-bold mb-4">
+                  {isRTL ? "تاريخ الفن النبطي" : "History of Nabataean Art"}
+                </h3>
+                <p className="mb-4">
+                  {isRTL 
+                    ? "الأنباط، وهم حضارة عربية قديمة ازدهرت في شمال غرب شبه الجزيرة العربية من القرن الرابع قبل الميلاد حتى القرن الأول الميلادي، كانوا معروفين بإنجازاتهم المعمارية والفنية الاستثنائية."
+                    : "The Nabataeans, an ancient Arab civilization that flourished in northwest Arabia from the 4th century BCE to the 1st century CE, were known for their exceptional architectural and artistic achievements."
+                  }
+                </p>
+                <p className="mb-6">
+                  {isRTL 
+                    ? "تتميز الحرف اليدوية النبطية بتأثيرات من الفن المصري واليوناني والروماني، لكنها تحتفظ بأسلوب مميز خاص بها. كانت الزخارف النباتية والهندسية شائعة، إلى جانب التصوير الواقعي للحيوانات والأشخاص."
+                    : "Nabataean craftsmanship features influences from Egyptian, Greek, and Roman art, yet maintains a distinctive style of its own. Floral and geometric decorations were common, alongside realistic portrayals of animals and people."
+                  }
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  <Button className="bg-museum-olive hover:bg-museum-olive/90">
+                    {isRTL ? "استكشف المزيد" : "Explore More"}
+                  </Button>
+                  <Button variant="outline" className="border-white/20 hover:bg-white/10">
+                    {isRTL ? "مشاهدة الأعمال الفنية" : "View Artworks"}
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
       
       {/* Featured Collections Section */}
       <FeaturedCollections isRTL={isRTL} />
-      
-      {/* Featured Artifacts Section */}
-      <section className="museum-container py-16">
-        <div className="flex justify-between items-center mb-10">
-          <h2 className="section-title">
-            {isRTL ? 'القطع الأثرية المميزة' : 'Featured Artifacts'}
-          </h2>
-          <Link to="/artifacts">
-            <Button variant="outline">
-              {isRTL ? 'عرض الكل' : 'View All'}
-            </Button>
-          </Link>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featuredArtifacts.map((artifact, index) => (
-            <motion.div 
-              key={artifact.id} 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <ArtifactCard artifact={artifact} isRTL={isRTL} />
-            </motion.div>
-          ))}
-        </div>
-      </section>
       
       {/* Hologram Experience Section */}
       <section className="py-20 bg-museum-blue/30 relative overflow-hidden">

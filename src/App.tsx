@@ -13,6 +13,8 @@ import NotFound from "./pages/NotFound";
 import HologramExperience from "./pages/HologramExperience";
 import VirtualMuseum from "./pages/VirtualMuseum";
 import Auctions from "./pages/Auctions";
+import ArtifactExplorer from "./pages/ArtifactExplorer";
+import PanoramaExperience from "./pages/PanoramaExperience";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +35,8 @@ const App = () => (
           <Route path="/virtual-museum" element={<VirtualMuseum />} />
           <Route path="/virtual-tour" element={<VirtualMuseum />} />
           <Route path="/auctions" element={<Auctions />} />
+          <Route path="/artifacts" element={<ArtifactExplorer />} />
+          <Route path="/360-experience" element={<PanoramaExperience />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
