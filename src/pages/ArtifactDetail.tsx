@@ -4,6 +4,7 @@ import { useParams, useLocation, Link } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import ModelViewer from '@/components/ModelViewer';
+import HologramViewer from '@/components/HologramViewer';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { artifactDetails, featuredArtifacts } from '@/data/mockData';
@@ -154,7 +155,12 @@ const ArtifactDetail = () => {
               </p>
             </div>
             
-            <div className="flex space-x-4">
+            <div className="flex flex-wrap gap-4">
+              <Button className="cta-button" asChild>
+                <a href={`/ar-viewer/${id}`} target="_blank" rel="noopener noreferrer">
+                  {isRTL ? 'عرض بالواقع المعزز' : 'View in AR'}
+                </a>
+              </Button>
               <Button className="cta-button">
                 {isRTL ? 'مشاركة' : 'Share'}
               </Button>
@@ -171,6 +177,9 @@ const ArtifactDetail = () => {
             <TabsTrigger value="model">
               {isRTL ? 'النموذج ثلاثي الأبعاد' : '3D Model'}
             </TabsTrigger>
+            <TabsTrigger value="hologram">
+              {isRTL ? 'محاكاة الهولوجرام' : 'Hologram Simulation'}
+            </TabsTrigger>
             <TabsTrigger value="history">
               {isRTL ? 'السياق التاريخي' : 'Historical Context'}
             </TabsTrigger>
@@ -181,6 +190,10 @@ const ArtifactDetail = () => {
           
           <TabsContent value="model" className="pt-4">
             <ModelViewer isRTL={isRTL} />
+          </TabsContent>
+          
+          <TabsContent value="hologram" className="pt-4">
+            <HologramViewer isRTL={isRTL} />
           </TabsContent>
           
           <TabsContent value="history" className="pt-4">
