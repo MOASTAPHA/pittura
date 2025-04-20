@@ -43,7 +43,7 @@ const Login = () => {
       title: isRTL ? 'تم تسجيل الدخول بنجاح' : 'Login Successful',
       description: isRTL 
         ? 'مرحبًا بك في متحف بيتورا الرقمي'
-        : 'Welcome to Baytora Digital Museum',
+        : 'Welcome to Pittura Digital Museum',
     });
   };
 

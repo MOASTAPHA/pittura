@@ -28,7 +28,7 @@ const Index = () => {
       <div className="panoramic-header" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1466442929976-97f336a657be?q=80&w=2834&auto=format&fit=crop')" }}>
         <div className="relative z-10 h-full flex flex-col items-center justify-center text-white px-4">
           <h1 className="text-4xl md:text-6xl font-bold mb-4 text-center animate-fade-in">
-            {isRTL ? 'بيتورا' : 'Baytora'}
+            {isRTL ? 'بيتورا' : 'Pittura'}
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-center max-w-3xl animate-fade-in" style={{ animationDelay: '0.2s' }}>
             {isRTL 

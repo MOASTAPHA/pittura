@@ -67,7 +67,7 @@ const Register = () => {
       title: isRTL ? 'تم التسجيل بنجاح' : 'Registration Successful',
       description: isRTL 
         ? 'مرحبًا بك في متحف بيتورا الرقمي'
-        : 'Welcome to Baytora Digital Museum',
+        : 'Welcome to Pittura Digital Museum',
     });
   };
 
