@@ -94,29 +94,6 @@ const HeroSection = ({ isRTL = false }: HeroSectionProps) => {
           </div>
         </div>
       </div>
-      
-      {/* Floating museum elements */}
-      <div className="absolute bottom-10 left-10 text-white animate-float">
-        <div className="hologram-artifact">
-          <div className="relative">
-            <div className="w-24 h-24 rounded-full bg-blue-500/20 backdrop-blur-md border border-white/20 flex items-center justify-center">
-              <Cube3D className="w-10 h-10 text-white/70" />
-            </div>
-            <div className="absolute -inset-2 bg-blue-500/20 blur-lg rounded-full -z-10"></div>
-          </div>
-        </div>
-      </div>
-      
-      <div className="absolute top-1/3 right-10 text-white animate-float" style={{ animationDelay: '0.5s' }}>
-        <div className="hologram-artifact">
-          <div className="relative">
-            <div className="w-16 h-16 rounded-full bg-museum-brown/20 backdrop-blur-md border border-white/20 flex items-center justify-center">
-              <GalleryVertical className="w-8 h-8 text-white/70" />
-            </div>
-            <div className="absolute -inset-2 bg-museum-brown/20 blur-lg rounded-full -z-10"></div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

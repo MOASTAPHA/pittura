@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, Search, User, BookOpen, Cube3D, GalleryVertical } from 'lucide-react';
+import { Menu, Search, User, BookOpen, Boxes, Library } from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useIsMobile } from '@/hooks/use-mobile';
 import MegaMenu from './MegaMenu';
@@ -53,7 +53,7 @@ const Navigation = ({ isRTL = false }: { isRTL?: boolean }) => {
                 className="hover:text-primary transition-colors flex items-center gap-1"
                 onClick={() => toggleMegaMenu('artifacts')}
               >
-                <GalleryVertical className="w-4 h-4" />
+                <Library className="w-4 h-4" />
                 {isRTL ? 'القطع الأثرية' : 'Artifacts'}
               </button>
               <button 
@@ -67,7 +67,7 @@ const Navigation = ({ isRTL = false }: { isRTL?: boolean }) => {
                 className="hover:text-primary transition-colors flex items-center gap-1"
                 onClick={() => toggleMegaMenu('holograms')}
               >
-                <Cube3D className="w-4 h-4" />
+                <Boxes className="w-4 h-4" />
                 {isRTL ? 'تجربة الهولوجرام' : 'Hologram Experience'}
               </button>
               <Link to="/auctions" className="hover:text-primary transition-colors">

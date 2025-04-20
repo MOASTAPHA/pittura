@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Play, Volume2, VolumeX, Info, Maximize, Map, Cube3D, Pause } from 'lucide-react';
+import { ArrowRight, Play, Volume2, VolumeX, Info, Maximize, Map, Boxes, Pause } from 'lucide-react';
 import { featuredArtifacts } from '@/data/mockData';
 
 const VirtualMuseum = () => {
@@ -159,7 +159,7 @@ const VirtualMuseum = () => {
                 }`}
                 onClick={toggleViewMode}
               >
-                <Cube3D className="w-4 h-4 mr-2" />
+                <Boxes className="w-4 h-4 mr-2" />
                 {isRTL 
                   ? (viewMode === 'standard' ? 'عرض الهولوجرام' : 'عرض عادي')
                   : (viewMode === 'standard' ? 'Hologram View' : 'Standard View')
@@ -319,7 +319,7 @@ const VirtualMuseum = () => {
                       {isRTL ? 'استكشف المعالم الفريدة والقطع الأثرية النادرة' : 'Explore unique landmarks and rare artifacts'}
                     </p>
                     <Button size="sm" className="bg-white text-black hover:bg-white/90">
-                      {isRTL ? 'بدء الجولة' : 'Start Tour'}
+                      {isRTL ? 'بد�� الجولة' : 'Start Tour'}
                     </Button>
                   </div>
                 </div>

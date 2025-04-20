@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Cube3D } from 'lucide-react';
+import { ArrowRight, Boxes } from 'lucide-react';
 
 interface FeaturedCollectionsProps {
   isRTL?: boolean;
@@ -92,7 +92,7 @@ const FeaturedCollections = ({ isRTL = false }: FeaturedCollectionsProps) => {
                 />
                 {collection.isHologramEnabled && (
                   <div className="absolute top-4 right-4 bg-blue-500/80 text-white px-3 py-1 rounded-full text-xs backdrop-blur-sm flex items-center gap-1">
-                    <Cube3D className="w-3 h-3" />
+                    <Boxes className="w-3 h-3" />
                     {isRTL ? 'هولوجرام متاح' : 'Hologram Available'}
                   </div>
                 )}

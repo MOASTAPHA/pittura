@@ -1,7 +1,7 @@
 
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Layers3, Map, Video, Cube3D } from 'lucide-react';
+import { ArrowRight, Layers3, Map, Video, Boxes } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { featuredArtifacts, virtualTours } from '@/data/mockData';
 
@@ -141,19 +141,19 @@ const MegaMenu = ({ isRTL = false, menuType, onClose }: MegaMenuProps) => {
         <h3 className="font-bold text-lg mb-4">{isRTL ? 'تجارب الهولوجرام' : 'Hologram Experiences'}</h3>
         <ul className="space-y-3">
           <li className="flex items-center gap-2">
-            <Cube3D className="w-4 h-4 text-blue-400" />
+            <Boxes className="w-4 h-4 text-blue-400" />
             <Link to="/holograms/gallery" className="hover:text-primary transition-colors">
               {isRTL ? 'معرض الهولوجرام' : 'Hologram Gallery'}
             </Link>
           </li>
           <li className="flex items-center gap-2">
-            <Cube3D className="w-4 h-4 text-green-400" />
+            <Boxes className="w-4 h-4 text-green-400" />
             <Link to="/holograms/interactive" className="hover:text-primary transition-colors">
               {isRTL ? 'تجارب تفاعلية' : 'Interactive Experiences'}
             </Link>
           </li>
           <li className="flex items-center gap-2">
-            <Cube3D className="w-4 h-4 text-purple-400" />
+            <Boxes className="w-4 h-4 text-purple-400" />
             <Link to="/holograms/ar" className="hover:text-primary transition-colors">
               {isRTL ? 'الواقع المعزز' : 'Augmented Reality'}
             </Link>

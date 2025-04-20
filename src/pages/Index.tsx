@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { featuredArtifacts, virtualTours, currentAuctions } from '@/data/mockData';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Cube3D } from 'lucide-react';
+import { Boxes } from 'lucide-react';
 
 const Index = () => {
   const [isRTL, setIsRTL] = useState(false);
@@ -69,7 +69,7 @@ const Index = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <div className="inline-block relative mb-4">
-              <Cube3D className="w-12 h-12 text-blue-500 mx-auto" />
+              <Boxes className="w-12 h-12 text-blue-500 mx-auto" />
               <div className="absolute -inset-4 bg-blue-500/20 blur-xl rounded-full -z-10"></div>
             </div>
             
