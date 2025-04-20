@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useThreeScene } from '@/hooks/useThreeScene';
 import { Button } from '@/components/ui/button';
-import { ZoomIn, ZoomOut, Cube } from 'lucide-react';
+import { ZoomIn, ZoomOut, Box } from 'lucide-react';
 
 interface ArtifactViewer3DProps {
   modelUrl: string;
@@ -60,7 +60,7 @@ const ArtifactViewer3D = ({ modelUrl, title, description, isRTL = false }: Artif
             className="h-8 w-8 rounded-full bg-white/10 border-white/20 text-white hover:bg-white/20"
             onClick={resetView}
           >
-            <Cube className="h-4 w-4" />
+            <Box className="h-4 w-4" />
           </Button>
         </div>
       </div>

@@ -1,7 +1,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Cube } from 'lucide-react';
+import { ArrowRight, Box } from 'lucide-react';
 import SearchBar from './SearchBar';
 import { useNavigate } from 'react-router-dom';
 import PanoramaViewer from './PanoramaViewer';
