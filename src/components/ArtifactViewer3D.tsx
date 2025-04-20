@@ -2,16 +2,23 @@
 import { useState } from 'react';
 import { useThreeScene } from '@/hooks/useThreeScene';
 import { Button } from '@/components/ui/button';
-import { ZoomIn, ZoomOut, Box } from 'lucide-react';
+import { ZoomIn, ZoomOut, Box, Rotate3d } from 'lucide-react';
 
 interface ArtifactViewer3DProps {
   modelUrl: string;
   title: string;
   description: string;
   isRTL?: boolean;
+  fallbackImageUrl?: string;
 }
 
-const ArtifactViewer3D = ({ modelUrl, title, description, isRTL = false }: ArtifactViewer3DProps) => {
+const ArtifactViewer3D = ({ 
+  modelUrl, 
+  title, 
+  description, 
+  isRTL = false, 
+  fallbackImageUrl = "https://images.unsplash.com/photo-1618944847828-82e943c3bdb7?q=80&w=2938&auto=format&fit=crop"
+}: ArtifactViewer3DProps) => {
   const [zoom, setZoom] = useState(2);
   const { containerRef, canvasRef, isLoading, hasError, updateCameraZoom, resetView } = useThreeScene({
     modelUrl, 
@@ -73,8 +80,16 @@ const ArtifactViewer3D = ({ modelUrl, title, description, isRTL = false }: Artif
         )}
         
         {hasError && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-10 text-red-400">
-            <p>{isRTL ? 'خطأ في تحميل النموذج' : 'Error loading 3D model'}</p>
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/70 z-10 p-4">
+            <Rotate3d className="text-red-400 w-10 h-10 mb-2" />
+            <p className="text-red-400 mb-2 text-center">
+              {isRTL ? 'خطأ في تحميل النموذج ثلاثي الأبعاد' : 'Error loading 3D model'}
+            </p>
+            <img 
+              src={fallbackImageUrl} 
+              alt={title}
+              className="w-full max-h-32 object-cover rounded mt-2"
+            />
           </div>
         )}
         

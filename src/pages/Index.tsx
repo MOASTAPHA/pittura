@@ -13,12 +13,17 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Boxes, Library } from 'lucide-react';
 
+const MODEL_URLS = {
+  VASE: "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Vase/glTF/Vase.gltf",
+  DAMAGE_HELMET: "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF/DamagedHelmet.gltf",
+  ANTIQUE_CAMERA: "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/AntiqueCamera/glTF/AntiqueCamera.gltf"
+};
+
 const Index = () => {
   const [isRTL, setIsRTL] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
-    // Check URL for language parameter
     const params = new URLSearchParams(location.search);
     setIsRTL(params.get('lang') === 'ar');
   }, [location]);
@@ -27,10 +32,8 @@ const Index = () => {
     <div className={isRTL ? 'rtl' : ''}>
       <Navigation isRTL={isRTL} />
       
-      {/* Hero Section with Ambient Video and 360 Panorama */}
       <HeroSection isRTL={isRTL} />
       
-      {/* Featured Artifacts with 3D Interactive Viewer */}
       <section className="bg-gradient-to-b from-black to-museum-blue/30 py-20 text-white">
         <div className="museum-container">
           <div className="text-center mb-12">
@@ -53,13 +56,14 @@ const Index = () => {
               viewport={{ once: true }}
             >
               <ArtifactViewer3D 
-                modelUrl="/models/artifact_default.glb"
+                modelUrl={MODEL_URLS.ANTIQUE_CAMERA}
                 title={isRTL ? "إناء نبطي من العلا" : "Nabataean Vessel from Al-Ula"}
                 description={isRTL 
                   ? "إناء فخاري يعود تاريخه للقرن الأول الميلادي، ويعكس مهارة الحرفيين النبطيين في صناعة الفخار."
                   : "A ceramic vessel dating back to the 1st century CE, reflecting the craftsmanship of Nabataean potters."
                 }
                 isRTL={isRTL}
+                fallbackImageUrl="https://images.unsplash.com/photo-1618944912177-16c67b7c2ada?q=80&w=2574&auto=format&fit=crop"
               />
             </motion.div>
             
@@ -100,10 +104,8 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Featured Collections Section */}
       <FeaturedCollections isRTL={isRTL} />
       
-      {/* Hologram Experience Section */}
       <section className="py-20 bg-museum-blue/30 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5"></div>
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center opacity-10"></div>
@@ -185,7 +187,6 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Virtual Tours Section */}
       <section className="bg-museum-sand py-16">
         <div className="museum-container">
           <div className="flex justify-between items-center mb-10">
@@ -215,7 +216,6 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Digital Auctions Section */}
       <section className="museum-container py-16">
         <div className="flex justify-between items-center mb-10">
           <h2 className="section-title">
@@ -282,7 +282,6 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Newsletter Section */}
       <section className="bg-museum-olive text-white py-16">
         <div className="museum-container text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
