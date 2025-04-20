@@ -15,10 +15,10 @@ const Navigation = ({ isRTL = false }: { isRTL?: boolean }) => {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Link to="/" className="text-2xl font-playfair font-bold">
-            {isRTL ? 'بيتورا' : 'Baytora'}
+            {isRTL ? 'بيتورا' : 'Pittura'}
           </Link>
           <span className="text-sm text-muted-foreground mt-1.5">
-            {isRTL ? 'متحف المملكة الرقمي' : 'The Kingdom\'s Digital Museum'}
+            {isRTL ? 'متحف المملكة الرقمي' : 'The Digital Art Museum'}
           </span>
         </div>
 

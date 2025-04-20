@@ -23,10 +23,10 @@ const AuthContainer = ({
         <div className="w-full max-w-md">
           <div className="mb-8">
             <Link to="/" className="text-2xl font-playfair font-bold">
-              {isRTL ? 'بيتورا' : 'Baytora'}
+              {isRTL ? 'بيتورا' : 'Pittura'}
             </Link>
             <p className="text-sm text-muted-foreground mt-1">
-              {isRTL ? 'متحف المملكة الرقمي' : 'The Kingdom\'s Digital Museum'}
+              {isRTL ? 'متحف المملكة الرقمي' : 'The Digital Art Museum'}
             </p>
           </div>
           
@@ -61,13 +61,13 @@ const AuthContainer = ({
             <h2 className="text-3xl font-bold mb-4">
               {isRTL 
                 ? 'استكشف تراث المملكة الغني'
-                : 'Explore the Kingdom\'s Rich Heritage'
+                : 'Explore Rich Artistic Heritage'
               }
             </h2>
             <p className="mb-6">
               {isRTL
                 ? 'انضم إلينا في رحلة عبر تاريخ المملكة العربية السعودية، واستكشف القطع الأثرية النادرة والمعالم الثقافية في متحفنا الرقمي.'
-                : 'Join us on a journey through Saudi Arabia\'s history, explore rare artifacts and cultural landmarks in our digital museum.'
+                : 'Join us on a journey through history, explore rare artworks and cultural masterpieces in our digital museum.'
               }
             </p>
           </div>
