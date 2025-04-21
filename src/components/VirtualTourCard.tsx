@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { VrHeadset } from 'lucide-react';
 
 export interface VirtualTourType {
   id: string;
@@ -25,7 +26,7 @@ interface VirtualTourCardProps {
 
 const VirtualTourCard = ({ tour, isRTL = false }: VirtualTourCardProps) => {
   return (
-    <Link to={`/tour/${tour.id}`}>
+    <Link to={`/360-experience/${tour.id}`}>
       <Card className={`artifact-card hover:scale-[1.02] transition-transform ${isRTL ? 'rtl' : ''}`}>
         <div className="relative h-64 overflow-hidden">
           <img 
@@ -43,6 +44,10 @@ const VirtualTourCard = ({ tour, isRTL = false }: VirtualTourCardProps) => {
               {isRTL ? 'مميز' : 'Featured'}
             </Badge>
           )}
+          <Badge variant="outline" className="absolute top-3 left-3 bg-black/50 text-white border-white/30 flex items-center gap-1">
+            <VrHeadset className="h-3 w-3" />
+            360°
+          </Badge>
         </div>
         <CardContent className="p-4">
           <p className="text-sm text-muted-foreground line-clamp-2 mb-2">

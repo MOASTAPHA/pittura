@@ -39,6 +39,7 @@ const App = () => (
           <Route path="/auction-section" element={<AuctionSection />} />
           <Route path="/artifacts" element={<ArtifactExplorer />} />
           <Route path="/360-experience" element={<PanoramaExperience />} />
+          <Route path="/360-experience/:locationId" element={<PanoramaExperience />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
