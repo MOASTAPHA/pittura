@@ -22,15 +22,41 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Card, CardContent } from '@/components/ui/card';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 interface SellYourArtifactProps {
   isRTL: boolean;
 }
 
+// Define form schema using Zod
+const formSchema = z.object({
+  itemName: z.string().min(2, {
+    message: "Item name must be at least 2 characters.",
+  }),
+  era: z.string().optional(),
+  region: z.string().optional(),
+  description: z.string().optional(),
+  authenticity: z.string().optional(),
+});
+
 const SellYourArtifact = ({ isRTL }: SellYourArtifactProps) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [suggestedPrice, setSuggestedPrice] = useState<number | null>(null);
+  
+  // Initialize the form
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      itemName: "",
+      era: "",
+      region: "",
+      description: "",
+      authenticity: "",
+    },
+  });
   
   // Handle file selection
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,6 +79,12 @@ const SellYourArtifact = ({ isRTL }: SellYourArtifactProps) => {
       };
       fileReader.readAsDataURL(file);
     }
+  };
+
+  // Form submission handler
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    console.log('Form submitted:', values, selectedFile);
+    // Here you would typically send the data to your backend
   };
   
   return (
@@ -103,27 +135,36 @@ const SellYourArtifact = ({ isRTL }: SellYourArtifactProps) => {
                 {isRTL ? 'نموذج التقديم' : 'Submission Form'}
               </h3>
               
-              <Form>
-                <div className="space-y-6">
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                   <FormField
+                    control={form.control}
                     name="itemName"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>{isRTL ? 'اسم القطعة' : 'Item Name'}</FormLabel>
                         <FormControl>
-                          <Input placeholder={isRTL ? 'مثال: إناء فخاري نبطي' : 'e.g., Nabatean Pottery Vase'} />
+                          <Input 
+                            placeholder={isRTL ? 'مثال: إناء فخاري نبطي' : 'e.g., Nabatean Pottery Vase'} 
+                            {...field}
+                          />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <FormField
+                      control={form.control}
                       name="era"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>{isRTL ? 'العصر/الفترة' : 'Era/Period'}</FormLabel>
-                          <Select>
+                          <Select 
+                            onValueChange={field.onChange} 
+                            defaultValue={field.value}
+                          >
                             <FormControl>
                               <SelectTrigger>
                                 <SelectValue placeholder={isRTL ? 'اختر العصر' : 'Select era'} />
@@ -136,16 +177,21 @@ const SellYourArtifact = ({ isRTL }: SellYourArtifactProps) => {
                               <SelectItem value="modern">{isRTL ? 'العصر الحديث' : 'Modern'}</SelectItem>
                             </SelectContent>
                           </Select>
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
                     
                     <FormField
+                      control={form.control}
                       name="region"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>{isRTL ? 'المنطقة/المصدر' : 'Region/Origin'}</FormLabel>
-                          <Select>
+                          <Select 
+                            onValueChange={field.onChange} 
+                            defaultValue={field.value}
+                          >
                             <FormControl>
                               <SelectTrigger>
                                 <SelectValue placeholder={isRTL ? 'اختر المنطقة' : 'Select region'} />
@@ -158,12 +204,14 @@ const SellYourArtifact = ({ isRTL }: SellYourArtifactProps) => {
                               <SelectItem value="eastern">{isRTL ? 'المنطقة الشرقية' : 'Eastern Province'}</SelectItem>
                             </SelectContent>
                           </Select>
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
                   </div>
                   
                   <FormField
+                    control={form.control}
                     name="description"
                     render={({ field }) => (
                       <FormItem>
@@ -172,57 +220,54 @@ const SellYourArtifact = ({ isRTL }: SellYourArtifactProps) => {
                           <Textarea 
                             placeholder={isRTL ? 'قدم وصفاً تفصيلياً للقطعة...' : 'Provide a detailed description of the item...'}
                             className="min-h-[100px]"
+                            {...field}
                           />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
                   
-                  <FormField
-                    name="images"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{isRTL ? 'صور القطعة' : 'Item Images'}</FormLabel>
-                        <FormControl>
-                          <div className="border-2 border-dashed border-input rounded-lg p-6 text-center cursor-pointer hover:bg-muted/50 transition-colors">
-                            <Input
-                              type="file"
-                              accept="image/*"
-                              className="hidden"
-                              id="image-upload"
-                              onChange={handleFileChange}
-                            />
-                            <label htmlFor="image-upload" className="cursor-pointer">
-                              {previewUrl ? (
-                                <div className="relative">
-                                  <img 
-                                    src={previewUrl} 
-                                    alt="Preview" 
-                                    className="max-h-40 mx-auto rounded-md"
-                                  />
-                                  <p className="mt-2 text-sm text-muted-foreground">
-                                    {selectedFile?.name}
-                                  </p>
-                                </div>
-                              ) : (
-                                <div className="flex flex-col items-center gap-2">
-                                  <Upload className="w-8 h-8 text-muted-foreground" />
-                                  <p className="font-medium">
-                                    {isRTL ? 'انقر لتحميل الصور' : 'Click to upload images'}
-                                  </p>
-                                  <p className="text-sm text-muted-foreground">
-                                    {isRTL 
-                                      ? 'PNG, JPG حتى 10 ميجابايت' 
-                                      : 'PNG, JPG up to 10MB'}
-                                  </p>
-                                </div>
-                              )}
-                            </label>
-                          </div>
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
+                  <FormItem>
+                    <FormLabel>{isRTL ? 'صور القطعة' : 'Item Images'}</FormLabel>
+                    <FormControl>
+                      <div className="border-2 border-dashed border-input rounded-lg p-6 text-center cursor-pointer hover:bg-muted/50 transition-colors">
+                        <Input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          id="image-upload"
+                          onChange={handleFileChange}
+                        />
+                        <label htmlFor="image-upload" className="cursor-pointer">
+                          {previewUrl ? (
+                            <div className="relative">
+                              <img 
+                                src={previewUrl} 
+                                alt="Preview" 
+                                className="max-h-40 mx-auto rounded-md"
+                              />
+                              <p className="mt-2 text-sm text-muted-foreground">
+                                {selectedFile?.name}
+                              </p>
+                            </div>
+                          ) : (
+                            <div className="flex flex-col items-center gap-2">
+                              <Upload className="w-8 h-8 text-muted-foreground" />
+                              <p className="font-medium">
+                                {isRTL ? 'انقر لتحميل الصور' : 'Click to upload images'}
+                              </p>
+                              <p className="text-sm text-muted-foreground">
+                                {isRTL 
+                                  ? 'PNG, JPG حتى 10 ميجابايت' 
+                                  : 'PNG, JPG up to 10MB'}
+                              </p>
+                            </div>
+                          )}
+                        </label>
+                      </div>
+                    </FormControl>
+                  </FormItem>
                   
                   {suggestedPrice && (
                     <Card className="bg-museum-brown/10 border-museum-brown/20">
@@ -243,6 +288,7 @@ const SellYourArtifact = ({ isRTL }: SellYourArtifactProps) => {
                   )}
                   
                   <FormField
+                    control={form.control}
                     name="authenticity"
                     render={({ field }) => (
                       <FormItem>
@@ -254,16 +300,18 @@ const SellYourArtifact = ({ isRTL }: SellYourArtifactProps) => {
                               : 'Explain how you can prove the authenticity of the item (certificates, history, source...)'
                             }
                             className="min-h-[80px]"
+                            {...field}
                           />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
                   
-                  <Button className="w-full bg-museum-brown hover:bg-museum-brown/90 text-white">
+                  <Button type="submit" className="w-full bg-museum-brown hover:bg-museum-brown/90 text-white">
                     {isRTL ? 'تقديم للمراجعة' : 'Submit for Review'}
                   </Button>
-                </div>
+                </form>
               </Form>
             </div>
           </div>
