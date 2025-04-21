@@ -161,14 +161,14 @@ const ShebaraSection = ({ isRTL }: ShebaraSectionProps) => {
           {[
             {
               icon: (
-                <div className="relative flex items-center justify-center w-14 h-14 shadow backdrop-blur-md border border-white/30 bg-white/30 rounded-full">
+                <div className="relative flex items-center justify-center w-14 h-14 shadow backdrop-blur-md border border-white/30 bg-white/30 rounded-full overflow-hidden">
                   <img
-                    src="/lovable-uploads/fd9d8166-0922-4a5f-811e-0854cba33b7c.png"
+                    src="/lovable-uploads/6dafc339-95be-44ac-82c8-a6c32f29c305.png"
                     alt="مدائن صالح"
-                    className="w-12 h-12 object-cover rounded-full border-2 border-white shadow"
-                    style={{ background: "rgba(255,255,255,0.22)" }}
+                    className="w-14 h-14 object-cover rounded-full"
+                    style={{ border: "2px solid #fff", background: "rgba(255,255,255,0.18)" }}
                   />
-                  <span className="absolute inset-0 rounded-full bg-white/30 backdrop-blur-sm pointer-events-none" />
+                  <span className="absolute inset-0 rounded-full bg-white/20 backdrop-blur-xs pointer-events-none" />
                 </div>
               ),
               title: isRTL ? "الهندسة المستقبلية" : "Futuristic Architecture",
