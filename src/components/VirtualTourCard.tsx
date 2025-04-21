@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { VrHeadset } from 'lucide-react';
+import { Headset } from 'lucide-react'; // Changed from VrHeadset to Headset
 
 export interface VirtualTourType {
   id: string;
@@ -45,7 +45,7 @@ const VirtualTourCard = ({ tour, isRTL = false }: VirtualTourCardProps) => {
             </Badge>
           )}
           <Badge variant="outline" className="absolute top-3 left-3 bg-black/50 text-white border-white/30 flex items-center gap-1">
-            <VrHeadset className="h-3 w-3" />
+            <Headset className="h-3 w-3" /> {/* Changed from VrHeadset */}
             360°
           </Badge>
         </div>

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -10,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { locations } from '@/data/tourLocations';
 import { Badge } from '@/components/ui/badge';
-import { VrHeadset } from 'lucide-react';
+import { Headset } from 'lucide-react';
 
 const PanoramaExperience = () => {
   const [isRTL, setIsRTL] = useState(false);
@@ -102,7 +101,7 @@ const PanoramaExperience = () => {
                     variant="outline"
                     className="bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20"
                   >
-                    <VrHeadset className="h-5 w-5 mr-2" />
+                    <Headset className="h-5 w-5 mr-2" />
                     {isRTL ? 'تجربة الواقع الافتراضي' : 'VR Experience'}
                   </Button>
                 </div>
@@ -250,7 +249,7 @@ const PanoramaExperience = () => {
                           
                           {location.vrEnabled && (
                             <Badge variant="outline" className="absolute top-3 left-3 bg-black/50 text-white border-white/30 flex items-center gap-1">
-                              <VrHeadset className="h-3 w-3" />
+                              <Headset className="h-3 w-3" />
                               VR
                             </Badge>
                           )}
