@@ -174,8 +174,8 @@ const ShebaraSection = ({ isRTL }: ShebaraSectionProps) => {
           {[
             {
               icon: (
-                <div className="bg-blue-200/60 rounded-full flex items-center justify-center w-14 h-14 shadow backdrop-blur-md border border-white/30">
-                  <span className="block w-7 h-7 rounded-full bg-gradient-to-tr from-blue-400/80 to-museum-olive/30 animate-fade-in" />
+                <div className="bg-gradient-to-tr from-[#4ade80]/60 to-[#22d3ee]/60 rounded-full flex items-center justify-center w-14 h-14 shadow backdrop-blur-md border border-white/30">
+                  <span className="block w-7 h-7 rounded-full bg-gradient-to-tr from-cyan-400/80 to-emerald-300/60 animate-fade-in" />
                 </div>
               ),
               title: isRTL ? "الهندسة المستقبلية" : "Futuristic Architecture",
@@ -231,3 +231,4 @@ const ShebaraSection = ({ isRTL }: ShebaraSectionProps) => {
 };
 
 export default ShebaraSection;
+
