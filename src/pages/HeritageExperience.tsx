@@ -61,7 +61,7 @@ const HeritageExperience = () => {
   };
 
   return (
-    <div className={`${isRTL ? 'rtl' : ''}`} ref={containerRef}>
+    <div className={isRTL ? 'rtl' : ''} ref={containerRef}>
       <Navigation isRTL={isRTL} />
       
       {/* Vertical dots navigation */}
@@ -188,6 +188,8 @@ const HeritageExperience = () => {
               <ArtifactViewer3D 
                 modelUrl={MODEL_URLS.VASE} 
                 isRTL={isRTL}
+                title={isRTL ? "إناء ملكي قديم" : "Ancient Royal Vase"}
+                description={isRTL ? "إناء نادر يعود للقرن السابع عشر" : "A rare vase from the 17th century"}
               />
             </motion.div>
           </div>
@@ -258,7 +260,7 @@ const HeritageExperience = () => {
             >
               {isRTL 
                 ? 'استكشف روائع العمارة السعودية التاريخية، من المدن القديمة مثل الدرعية والعلا، إلى المباني التقليدية في مختلف مناطق المملكة. تعرف على التقنيات المعمارية الفريدة التي تطورت لتناسب البيئة الصحراوية والثقافة المحلية.'
-                : 'Explore the wonders of Saudi historical architecture, from ancient cities like Diriyah and AlUla, to traditional buildings across the Kingdom\'s regions. Discover the unique architectural techniques that evolved to suit the desert environment and local culture.'}
+                : "Explore the wonders of Saudi historical architecture, from ancient cities like Diriyah and AlUla, to traditional buildings across the Kingdom's regions. Discover the unique architectural techniques that evolved to suit the desert environment and local culture."}
             </motion.p>
             
             <motion.div
@@ -320,7 +322,7 @@ const HeritageExperience = () => {
             >
               {isRTL 
                 ? 'استكشف الحرف اليدوية التقليدية التي تعكس التنوع الثقافي للمملكة. من النسيج والسدو إلى الخزف والحفر على الخشب، كل حرفة تمثل تقاليد متوارثة عبر الأجيال وتعكس مهارات حرفية استثنائية.'
-                : 'Explore traditional handicrafts that reflect the Kingdom's cultural diversity. From textiles and Al-Sadu weaving to pottery and woodcarving, each craft represents traditions passed down through generations and showcases exceptional artisanal skills.'}
+                : "Explore traditional handicrafts that reflect the Kingdom's cultural diversity. From textiles and Al-Sadu weaving to pottery and woodcarving, each craft represents traditions passed down through generations and showcases exceptional artisanal skills."}
             </motion.p>
             
             <motion.div
@@ -349,6 +351,8 @@ const HeritageExperience = () => {
               <ArtifactViewer3D 
                 modelUrl={MODEL_URLS.WATER_VESSEL} 
                 isRTL={isRTL}
+                title={isRTL ? "حرفة يدوية تقليدية" : "Traditional Handicraft"}
+                description={isRTL ? "صناعة يدوية تعكس التراث الثقافي الغني للمملكة" : "Handcrafted item reflecting the rich cultural heritage of the Kingdom"}
               />
             </motion.div>
           </div>
