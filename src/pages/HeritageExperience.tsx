@@ -105,7 +105,7 @@ const HeritageExperience = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            {isRTL ? 'اكتشف عراقة المملكة' : 'Discover The Kingdom\'s Legacy'}
+            {isRTL ? 'اكتشف عراقة المملكة' : "Discover The Kingdom's Legacy"}
           </motion.h1>
           
           <motion.p 
@@ -116,7 +116,7 @@ const HeritageExperience = () => {
           >
             {isRTL 
               ? 'استكشف تراث المملكة العربية السعودية الغني عبر القرون في تجربة رقمية آسرة'
-              : 'Explore Saudi Arabia\'s rich heritage across centuries in an immersive digital experience'
+              : "Explore Saudi Arabia's rich heritage across centuries in an immersive digital experience"
             }
           </motion.p>
           
@@ -258,7 +258,7 @@ const HeritageExperience = () => {
             >
               {isRTL 
                 ? 'استكشف روائع العمارة السعودية التاريخية، من المدن القديمة مثل الدرعية والعلا، إلى المباني التقليدية في مختلف مناطق المملكة. تعرف على التقنيات المعمارية الفريدة التي تطورت لتناسب البيئة الصحراوية والثقافة المحلية.'
-                : 'Explore the wonders of Saudi historical architecture, from ancient cities like Diriyah and AlUla, to traditional buildings across the Kingdom's regions. Discover the unique architectural techniques that evolved to suit the desert environment and local culture.'}
+                : 'Explore the wonders of Saudi historical architecture, from ancient cities like Diriyah and AlUla, to traditional buildings across the Kingdom\'s regions. Discover the unique architectural techniques that evolved to suit the desert environment and local culture.'}
             </motion.p>
             
             <motion.div
