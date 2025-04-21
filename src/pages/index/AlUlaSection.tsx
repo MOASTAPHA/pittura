@@ -22,14 +22,24 @@ interface AlUlaSectionProps {
   isRTL: boolean;
 }
 
-const ALULA_IMAGE = "https://images.unsplash.com/photo-1464983953574-0892a716854b?q=80&w=2670&auto=format&fit=crop";
+// High-resolution AlUla images with warm, earthy tones
+const ALULA_IMAGES = [
+  "https://images.unsplash.com/photo-1590766116807-79a43f70a2e0?q=80&w=3174&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1610649359681-dea97f77f594?q=80&w=2670&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1552160800-31d6587125ad?q=80&w=2670&auto=format&fit=crop"
+];
 
 const AlUlaSection = ({ isRTL }: AlUlaSectionProps) => {
   return (
-    <section className="relative py-28 overflow-hidden bg-gradient-to-br from-[#eddfc8] via-[#c4b79d]/60 to-[#625638]/60 select-none">
+    <section className="relative py-28 overflow-hidden bg-gradient-to-br from-[#f5efe4] via-[#f8f3e7] to-[#f0e9d7] select-none">
       <GlowRune />
       {/* Floating sandstone background accent */}
-      <div className="absolute top-0 left-0 w-full h-96 bg-[url('https://images.unsplash.com/photo-1464983953574-0892a716854b?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-left opacity-20 blur-sm pointer-events-none"></div>
+      <motion.div 
+        initial={{ y: 0 }}
+        animate={{ y: -15 }}
+        transition={{ duration: 25, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+        className="absolute top-0 left-0 w-full h-96 bg-[url('https://images.unsplash.com/photo-1541443471765-15e1f99ad57f?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center opacity-10 blur-sm pointer-events-none"
+      />
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Magazine layout: left text, right hero image */}
@@ -42,9 +52,15 @@ const AlUlaSection = ({ isRTL }: AlUlaSectionProps) => {
             transition={{ duration: 0.9 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-xs uppercase tracking-widest text-[#3e2516]/70 mb-5 font-light animate-fade-in">
-              {isRTL ? "ملاذ الصحراء الأثري" : "Desert Sanctuary"}
-            </h2>
+            <motion.h2 
+              className="text-xs uppercase tracking-widest text-[#3e2516]/70 mb-5 font-light animate-fade-in"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            >
+              {isRTL ? "ملاذ الصحراء الأثري" : "Ancient Desert Sanctuary"}
+            </motion.h2>
             <div className="relative mb-3">
               {/* Ancient accent line */}
               <span className="absolute -top-3 left-2 w-16 h-1 bg-gradient-to-r from-yellow-300 via-orange-300/90 to-transparent rounded-2xl"></span>
@@ -55,8 +71,23 @@ const AlUlaSection = ({ isRTL }: AlUlaSectionProps) => {
             <p className="text-lg leading-relaxed text-[#4e3a17] mb-10 max-w-lg animate-fade-in">
               {isRTL
                 ? "اكتشف سحر العلا، موطن الحضارات القديمة وموقع الحجر النبطي. من الجبال الصخرية المنحوتة بالرياح إلى الهندسة المعمارية التاريخية، تعكس العلا جمالاً غامضًا وأثراً خالدًا في عمق الصحراء."
-                : "Experience AlUla’s mystical beauty, home to ancient civilizations and the Nabatean site of Hegra. Wind-carved rock formations and timeless ruins create a haunting, eternal desert atmosphere."}
+                : "Discover the mystical beauty of AlUla, home to ancient civilizations and the Nabatean site of Hegra. From wind-carved sandstone cliffs to historical architecture, AlUla reflects an eternal heritage nestled in the desert's embrace."}
             </p>
+            <div className="flex flex-wrap gap-4 mb-10">
+              {['Hegra', 'Elephant Rock', 'Dadan'].map((site, index) => (
+                <motion.span 
+                  key={site}
+                  className="px-4 py-1.5 bg-[#e8d9be]/60 text-[#5c4a30] rounded-full text-sm backdrop-blur-sm border border-[#d7c9ad]/30"
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.1 * index }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.05, backgroundColor: '#e8d9be' }}
+                >
+                  {isRTL ? ['الحجر', 'صخرة الفيل', 'دادان'][index] : site}
+                </motion.span>
+              ))}
+            </div>
             <Link to="/destinations/alula" className="block">
               <Button variant="outline" className="rounded-full px-10 py-5 border-[#c6a367] text-[#634426] hover:bg-[#634426] hover:text-white group shadow hover:shadow-lg transition-all font-semibold tracking-wide text-base">
                 {isRTL ? "استكشف العلا" : "Explore AlUla"}
@@ -64,27 +95,93 @@ const AlUlaSection = ({ isRTL }: AlUlaSectionProps) => {
               </Button>
             </Link>
           </motion.div>
-          {/* Hero Image with ancient/holo accent and float */}
+          {/* Image Gallery */}
           <motion.div
-            className="lg:w-3/5 w-full relative flex items-center justify-center"
+            className="lg:w-3/5 w-full relative"
             initial={{ opacity: 0, x: 80 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.1, delay: 0.15 }}
             viewport={{ once: true }}
           >
-            <div className="group relative rounded-3xl overflow-hidden shadow-2xl hover:shadow-[0_10px_60px_#43230144] transition-shadow w-full aspect-[16/7] flex justify-center items-center bg-[#f2eada]/80">
-              <img
-                src={ALULA_IMAGE}
-                alt="AlUla Ancient Landscape"
-                className="object-cover w-full h-full scale-100 group-hover:scale-105 transition-transform duration-700"
-                style={{ filter: "contrast(1.07) brightness(0.97) grayscale(0.07) drop-shadow(0 8px 30px #6f6145c0)" }}
-                loading="lazy"
-              />
-              {/* Subtle glowing rune */}
-              <span className="absolute left-12 bottom-5 w-16 h-4 bg-gradient-to-r from-yellow-200/90 via-orange-200/70 to-transparent rounded-2xl blur-lg opacity-70 pointer-events-none" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 relative">
+              <div className="col-span-full">
+                <motion.div 
+                  className="group relative rounded-3xl overflow-hidden shadow-2xl hover:shadow-[0_10px_60px_#43230144] transition-shadow aspect-[16/9] flex justify-center items-center"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <img
+                    src={ALULA_IMAGES[0]}
+                    alt="AlUla Ancient Landscape"
+                    className="object-cover w-full h-full scale-100 group-hover:scale-105 transition-transform duration-700"
+                    style={{ filter: "contrast(1.07) brightness(0.97) saturate(1.1)" }}
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                  <span className="absolute bottom-5 left-6 text-white/90 text-2xl font-playfair tracking-wide drop-shadow-md">
+                    {isRTL ? "الحجر (مدائن صالح)" : "Hegra (Madain Saleh)"}
+                  </span>
+                  {/* Interactive 360° preview button */}
+                  <span className="absolute top-4 right-4 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white/90 text-xs flex items-center gap-1.5 hover:bg-white/30 transition-colors cursor-pointer">
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="white" strokeWidth="1.5"/>
+                      <path d="M14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12Z" stroke="white" strokeWidth="1.5"/>
+                      <path d="M12 8V4" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+                      <path d="M16 12H20" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+                      <path d="M12 16V20" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+                      <path d="M8 12H4" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+                    </svg>
+                    {isRTL ? 'جولة افتراضية 360°' : '360° View'}
+                  </span>
+                </motion.div>
+              </div>
+              
+              <motion.div 
+                className="group relative rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl aspect-[4/3]"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.5 }}
+              >
+                <img
+                  src={ALULA_IMAGES[1]}
+                  alt="AlUla Rock Formations"
+                  className="object-cover w-full h-full scale-100 group-hover:scale-105 transition-transform duration-700"
+                  style={{ filter: "contrast(1.05) brightness(0.95) saturate(1.05)" }}
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                <span className="absolute bottom-4 left-4 text-white/90 text-lg font-playfair tracking-wide drop-shadow-md">
+                  {isRTL ? "صخرة الفيل" : "Elephant Rock"}
+                </span>
+              </motion.div>
+              
+              <motion.div 
+                className="group relative rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl aspect-[4/3]"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.5 }}
+              >
+                <img
+                  src={ALULA_IMAGES[2]}
+                  alt="AlUla Cultural Festival"
+                  className="object-cover w-full h-full scale-100 group-hover:scale-105 transition-transform duration-700"
+                  style={{ filter: "contrast(1.05) brightness(0.95) saturate(1.05)" }}
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                <span className="absolute bottom-4 left-4 text-white/90 text-lg font-playfair tracking-wide drop-shadow-md">
+                  {isRTL ? "مهرجان العلا" : "AlUla Festival"}
+                </span>
+              </motion.div>
             </div>
-            {/* Holographic float aura */}
-            <div className="absolute -bottom-10 right-2 w-44 h-16 bg-gradient-to-t from-[#ffe6b6]/30 via-orange-100/60 to-transparent rounded-full blur-2xl opacity-40 pointer-events-none z-0 animate-float"></div>
+            {/* Desert texture overlay */}
+            <div className="absolute -top-12 -right-12 w-64 h-64 opacity-30 pointer-events-none z-0">
+              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <filter id="noiseFilter">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+                  <feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.5 0"/>
+                </filter>
+                <rect width="100%" height="100%" filter="url(#noiseFilter)"/>
+              </svg>
+            </div>
           </motion.div>
         </div>
       </div>

@@ -7,10 +7,13 @@ import { locations } from '@/data/tourLocations';
 
 // Decorative holographic orb accent
 const HoloOrb = () => (
-  <svg
-    className="absolute -top-10 left-2/3 w-40 h-40 z-0 pointer-events-none animate-float-slow opacity-60"
+  <motion.svg
+    className="absolute -top-10 left-2/3 w-40 h-40 z-0 pointer-events-none"
     viewBox="0 0 200 200"
     fill="none"
+    initial={{ opacity: 0.4 }}
+    animate={{ opacity: 0.6 }}
+    transition={{ duration: 4, repeat: Infinity, repeatType: "reverse" }}
   >
     <defs>
       <radialGradient id="holo-orb" cx="0.4" cy="0.45" r="1">
@@ -19,7 +22,16 @@ const HoloOrb = () => (
         <stop offset="1" stopColor="#d0b2ff" stopOpacity="0.45" />
       </radialGradient>
     </defs>
-    <ellipse cx="100" cy="100" rx="85" ry="85" fill="url(#holo-orb)" />
+    <motion.ellipse 
+      cx="100" 
+      cy="100" 
+      rx="85" 
+      ry="85" 
+      fill="url(#holo-orb)"
+      initial={{ scale: 0.95 }}
+      animate={{ scale: 1.05 }}
+      transition={{ duration: 6, repeat: Infinity, repeatType: "reverse" }}
+    />
     <ellipse
       cx="70"
       cy="80"
@@ -29,7 +41,7 @@ const HoloOrb = () => (
       opacity="0.18"
       transform="rotate(-14 80 80)"
     />
-  </svg>
+  </motion.svg>
 );
 
 interface Props {
