@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, Search, User, BookOpen, Boxes, Library } from 'lucide-react';
+import { Menu, Search, User, BookOpen, Boxes, Library, BookOpenText } from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useIsMobile } from '@/hooks/use-mobile';
 import MegaMenu from './MegaMenu';
@@ -48,6 +48,13 @@ const Navigation = ({ isRTL = false }: { isRTL?: boolean }) => {
                 className="hover:text-primary transition-colors"
               >
                 {isRTL ? 'الرئيسية' : 'Home'}
+              </Link>
+              <Link 
+                to="/heritage-experience" 
+                className="hover:text-primary transition-colors flex items-center gap-1"
+              >
+                <BookOpenText className="w-4 h-4" />
+                {isRTL ? 'تجربة التراث' : 'Heritage Experience'}
               </Link>
               <button 
                 className="hover:text-primary transition-colors flex items-center gap-1"
@@ -113,6 +120,9 @@ const Navigation = ({ isRTL = false }: { isRTL?: boolean }) => {
             <div className="flex flex-col space-y-4">
               <Link to="/" className="hover:text-primary transition-colors py-2 px-4">
                 {isRTL ? 'الرئيسية' : 'Home'}
+              </Link>
+              <Link to="/heritage-experience" className="hover:text-primary transition-colors py-2 px-4">
+                {isRTL ? 'تجربة التراث' : 'Heritage Experience'}
               </Link>
               <Link to="/artifacts" className="hover:text-primary transition-colors py-2 px-4">
                 {isRTL ? 'القطع الأثرية' : 'Artifacts'}
