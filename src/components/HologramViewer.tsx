@@ -8,13 +8,15 @@ import * as THREE from 'three';
 interface HologramViewerProps {
   modelUrl?: string;
   isRTL?: boolean;
+  isHologramActive?: boolean;
 }
 
 const HologramViewer = ({ 
   modelUrl = '/models/artifact_default.glb', 
-  isRTL = false 
+  isRTL = false,
+  isHologramActive: initialHologramState = false
 }: HologramViewerProps) => {
-  const [isHologramActive, setIsHologramActive] = useState(true);
+  const [isHologramActive, setIsHologramActive] = useState(initialHologramState);
   
   const {
     containerRef,

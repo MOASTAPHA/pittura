@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
@@ -11,12 +12,14 @@ import { Button } from '@/components/ui/button';
 import { featuredArtifacts, virtualTours, currentAuctions } from '@/data/mockData';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Boxes, Library } from 'lucide-react';
+import { Boxes, Library, ExternalLink, ArrowRight } from 'lucide-react';
 import FeaturedArtifactsSection from './index/FeaturedArtifactsSection';
 import HologramExperienceSection from './index/HologramExperienceSection';
 import VirtualToursSection from './index/VirtualToursSection';
 import DigitalAuctionsSection from './index/DigitalAuctionsSection';
 import NewsletterSection from './index/NewsletterSection';
+import ShebaraSection from './index/ShebaraSection';
+import AlUlaSection from './index/AlUlaSection';
 
 const MODEL_URLS = {
   VASE: "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Vase/glTF/Vase.gltf",
@@ -38,7 +41,9 @@ const Index = () => {
       <Navigation isRTL={isRTL} />
       <HeroSection isRTL={isRTL} />
       <FeaturedArtifactsSection isRTL={isRTL} />
+      <ShebaraSection isRTL={isRTL} />
       <FeaturedCollections isRTL={isRTL} />
+      <AlUlaSection isRTL={isRTL} />
       <HologramExperienceSection isRTL={isRTL} />
       <VirtualToursSection isRTL={isRTL} />
       <DigitalAuctionsSection isRTL={isRTL} />
