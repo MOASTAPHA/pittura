@@ -14,7 +14,7 @@ const DigitalAuctionsSection = ({ isRTL }: Props) => (
       <h2 className="section-title">
         {isRTL ? 'المزادات الرقمية' : 'Digital Auctions'}
       </h2>
-      <Link to="/auctions">
+      <Link to="/auction-section">
         <Button variant="outline">
           {isRTL ? 'عرض الكل' : 'View All'}
         </Button>
@@ -64,9 +64,11 @@ const DigitalAuctionsSection = ({ isRTL }: Props) => (
                 </p>
               </div>
             </div>
-            <Button className="w-full mt-4 cta-button">
-              {isRTL ? 'المزايدة الآن' : 'Bid Now'}
-            </Button>
+            <Link to="/auction-section">
+              <Button className="w-full mt-4 cta-button">
+                {isRTL ? 'المزايدة الآن' : 'Bid Now'}
+              </Button>
+            </Link>
           </motion.div>
         );
       })}

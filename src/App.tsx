@@ -13,6 +13,7 @@ import NotFound from "./pages/NotFound";
 import HologramExperience from "./pages/HologramExperience";
 import VirtualMuseum from "./pages/VirtualMuseum";
 import Auctions from "./pages/Auctions";
+import AuctionSection from "./pages/AuctionSection";
 import ArtifactExplorer from "./pages/ArtifactExplorer";
 import PanoramaExperience from "./pages/PanoramaExperience";
 
@@ -35,6 +36,7 @@ const App = () => (
           <Route path="/virtual-museum" element={<VirtualMuseum />} />
           <Route path="/virtual-tour" element={<VirtualMuseum />} />
           <Route path="/auctions" element={<Auctions />} />
+          <Route path="/auction-section" element={<AuctionSection />} />
           <Route path="/artifacts" element={<ArtifactExplorer />} />
           <Route path="/360-experience" element={<PanoramaExperience />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

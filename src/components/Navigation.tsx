@@ -70,8 +70,8 @@ const Navigation = ({ isRTL = false }: { isRTL?: boolean }) => {
                 <Boxes className="w-4 h-4" />
                 {isRTL ? 'تجربة الهولوجرام' : 'Hologram Experience'}
               </button>
-              <Link to="/auctions" className="hover:text-primary transition-colors">
-                {isRTL ? 'المزادات' : 'Auctions'}
+              <Link to="/auction-section" className="hover:text-primary transition-colors">
+                {isRTL ? 'المزادات الثقافية' : 'Cultural Auctions'}
               </Link>
               <Link to="/about" className="hover:text-primary transition-colors">
                 {isRTL ? 'عن المتحف' : 'About'}
@@ -123,8 +123,8 @@ const Navigation = ({ isRTL = false }: { isRTL?: boolean }) => {
               <Link to="/holograms" className="hover:text-primary transition-colors py-2 px-4">
                 {isRTL ? 'تجربة الهولوجرام' : 'Hologram Experience'}
               </Link>
-              <Link to="/auctions" className="hover:text-primary transition-colors py-2 px-4">
-                {isRTL ? 'المزادات' : 'Auctions'}
+              <Link to="/auction-section" className="hover:text-primary transition-colors py-2 px-4">
+                {isRTL ? 'المزادات الثقافية' : 'Cultural Auctions'}
               </Link>
               <Link to="/about" className="hover:text-primary transition-colors py-2 px-4">
                 {isRTL ? 'عن المتحف' : 'About'}
