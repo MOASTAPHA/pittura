@@ -1,10 +1,8 @@
-
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-// Holographic accent SVG
 const HoloAccent = () => (
   <svg className="absolute top-6 left-6 w-24 h-24 z-10 opacity-70 mix-blend-screen pointer-events-none"
     viewBox="0 0 100 100" fill="none">
@@ -25,7 +23,6 @@ interface ShebaraSectionProps {
   isRTL: boolean;
 }
 
-// High-resolution Shebara images
 const SHEBARA_IMAGES = [
   {
     src: "https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=3270&auto=format&fit=crop",
@@ -48,7 +45,6 @@ const ShebaraSection = ({ isRTL }: ShebaraSectionProps) => {
   return (
     <section className="relative py-28 overflow-hidden bg-gradient-to-br from-[#f5f8fa] via-white to-[#edf6fc] select-none">
       <HoloAccent />
-      {/* Parallax background accent */}
       <motion.div 
         initial={{ y: -20 }}
         animate={{ y: 0 }}
@@ -57,9 +53,7 @@ const ShebaraSection = ({ isRTL }: ShebaraSectionProps) => {
       />
           
       <div className="container mx-auto px-6 relative z-10">
-        {/* Flex layout for image + content */}
         <div className="flex flex-col-reverse lg:flex-row items-center gap-16">
-          {/* Magazine Image Gallery */}
           <motion.div
             className="lg:w-3/5 w-full flex flex-col gap-6"
             initial={{ opacity: 0, x: 60 }}
@@ -84,7 +78,6 @@ const ShebaraSection = ({ isRTL }: ShebaraSectionProps) => {
                 <span className="absolute bottom-6 left-6 text-white/90 drop-shadow text-2xl font-playfair tracking-wide">
                   {isRTL ? "إطلالة جوية" : "Aerial View"}
                 </span>
-                {/* Holographic light line */}
                 <span className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-300/70 via-blue-200 to-transparent animate-pulse" />
               </motion.div>
               <div className="flex flex-col gap-6">
@@ -104,7 +97,6 @@ const ShebaraSection = ({ isRTL }: ShebaraSectionProps) => {
                   <span className="absolute bottom-5 left-6 text-white/85 text-xl font-playfair tracking-tighter drop-shadow">
                     {isRTL ? "الفيلات المائية" : "Overwater Villas"}
                   </span>
-                  {/* Glass overlay */}
                   <span className="absolute left-0 top-0 w-full h-full bg-white/5 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                 </motion.div>
                 <motion.div 
@@ -123,14 +115,12 @@ const ShebaraSection = ({ isRTL }: ShebaraSectionProps) => {
                   <span className="absolute bottom-5 left-6 text-white/80 text-lg font-playfair drop-shadow">
                     {isRTL ? "المياه الفيروزية" : "Turquoise Waters"}
                   </span>
-                  {/* Subtle hologram scan effect */}
                   <span className="absolute left-0 top-0 w-full h-[2px] bg-gradient-to-r from-blue-300/70 via-white/60 to-transparent animate-hologram-scan pointer-events-none" />
                 </motion.div>
               </div>
             </div>
           </motion.div>
 
-          {/* Content and titles */}
           <motion.div
             className="lg:w-2/5 w-full flex flex-col items-start lg:items-start"
             initial={{ opacity: 0, y: 40 }}
@@ -142,7 +132,6 @@ const ShebaraSection = ({ isRTL }: ShebaraSectionProps) => {
               {isRTL ? "وجهة حصرية" : "Exclusive Destination"}
             </h2>
             <div className="relative">
-              {/* Gradient hologram line accent */}
               <span className="absolute -top-3 left-2 w-24 h-2 bg-gradient-to-r from-[#0FA0CE]/50 to-[#B8E1F0]/0 rounded-2xl blur"></span>
               <h3 className="text-5xl md:text-6xl font-playfair font-bold mb-7 text-museum-brown drop-shadow-lg leading-tight">
                 {isRTL ? "منتجع شبارة" : "Shebara Resort"}
@@ -162,7 +151,6 @@ const ShebaraSection = ({ isRTL }: ShebaraSectionProps) => {
           </motion.div>
         </div>
 
-        {/* Magazine-style feature row with subtle 3D accent */}
         <motion.div
           className="relative z-20 mt-16 flex flex-col lg:flex-row gap-8"
           initial={{ opacity: 0, y: 20 }}
@@ -170,12 +158,17 @@ const ShebaraSection = ({ isRTL }: ShebaraSectionProps) => {
           transition={{ duration: 0.65, delay: 0.1 }}
           viewport={{ once: true }}
         >
-          {/* Each feature with glass card design + hover effect */}
           {[
             {
               icon: (
-                <div className="bg-gradient-to-tr from-[#4ade80]/60 to-[#22d3ee]/60 rounded-full flex items-center justify-center w-14 h-14 shadow backdrop-blur-md border border-white/30">
-                  <span className="block w-7 h-7 rounded-full bg-gradient-to-tr from-cyan-400/80 to-emerald-300/60 animate-fade-in" />
+                <div className="relative flex items-center justify-center w-14 h-14 shadow backdrop-blur-md border border-white/30 bg-white/30 rounded-full">
+                  <img
+                    src="/lovable-uploads/fd9d8166-0922-4a5f-811e-0854cba33b7c.png"
+                    alt="مدائن صالح"
+                    className="w-12 h-12 object-cover rounded-full border-2 border-white shadow"
+                    style={{ background: "rgba(255,255,255,0.22)" }}
+                  />
+                  <span className="absolute inset-0 rounded-full bg-white/30 backdrop-blur-sm pointer-events-none" />
                 </div>
               ),
               title: isRTL ? "الهندسة المستقبلية" : "Futuristic Architecture",
@@ -212,23 +205,19 @@ const ShebaraSection = ({ isRTL }: ShebaraSectionProps) => {
               whileHover={{ y: -5 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              {/* Accent circle */}
               <div className="absolute -top-8 -left-8">
                 {f.icon}
               </div>
               <h4 className="text-2xl font-playfair font-semibold text-museum-brown mb-3 mt-8">{f.title}</h4>
               <p className="text-neutral-800">{f.description}</p>
-              {/* Subtle floating glass edge */}
               <div className="absolute bottom-1 right-4 w-12 h-2 bg-gradient-to-r from-blue-300 via-blue-50/80 to-transparent rounded-xl blur-lg opacity-60 pointer-events-none animate-float"></div>
             </motion.div>
           ))}
         </motion.div>
       </div>
-      {/* Decorative floating 3D hologram-glass disc bottom left */}
       <div className="absolute -bottom-24 -left-16 w-80 h-40 bg-gradient-to-tr from-blue-200/40 via-blue-50 to-transparent rounded-full blur-2xl opacity-50 pointer-events-none z-0 animate-float"></div>
     </section>
   );
 };
 
 export default ShebaraSection;
-
