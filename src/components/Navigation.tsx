@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, Search, User, BookOpen, Boxes, Library, BookOpenText } from 'lucide-react';
+import { Menu, Search, User, BookOpen, Boxes, Library, BookOpenText, Gem } from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useIsMobile } from '@/hooks/use-mobile';
 import MegaMenu from './MegaMenu';
@@ -33,8 +33,16 @@ const Navigation = ({ isRTL = false }: { isRTL?: boolean }) => {
       <nav className={`py-4 px-6 bg-background/90 backdrop-blur-md sticky top-0 z-50 border-b ${isRTL ? 'rtl' : ''}`}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Link to="/" className="text-2xl font-playfair font-bold">
-              {isRTL ? 'بيتورا' : 'Pittura'}
+            <Link to="/" className="relative flex items-center font-playfair">
+              <span className="text-2xl font-bold">P</span>
+              <span className="relative text-2xl font-bold">
+                i
+                <Gem 
+                  className="absolute -top-3 left-1/2 -translate-x-1/2 text-primary w-4 h-4 animate-float" 
+                  strokeWidth={2.5}
+                />
+              </span>
+              <span className="text-2xl font-bold">ttura</span>
             </Link>
             <span className="text-sm text-muted-foreground mt-1.5">
               {isRTL ? 'متحف المملكة الرقمي' : 'The Digital Art Museum'}
