@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -34,15 +33,31 @@ const Navigation = ({ isRTL = false }: { isRTL?: boolean }) => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Link to="/" className="relative flex items-center font-playfair">
-              <span className="text-2xl font-bold">P</span>
-              <span className="relative text-2xl font-bold">
-                i
-                <Gem 
-                  className="absolute -top-3 left-1/2 -translate-x-1/2 text-primary w-4 h-4 animate-float" 
-                  strokeWidth={2.5}
-                />
-              </span>
-              <span className="text-2xl font-bold">ttura</span>
+              {isRTL ? (
+                <>
+                  <span className="text-2xl font-bold">ب</span>
+                  <span className="relative text-2xl font-bold">
+                    ي
+                    <Gem 
+                      className="absolute -top-3 left-1/2 -translate-x-1/2 text-primary w-4 h-4 animate-float" 
+                      strokeWidth={2.5}
+                    />
+                  </span>
+                  <span className="text-2xl font-bold">تورا</span>
+                </>
+              ) : (
+                <>
+                  <span className="text-2xl font-bold">P</span>
+                  <span className="relative text-2xl font-bold">
+                    i
+                    <Gem 
+                      className="absolute -top-3 left-1/2 -translate-x-1/2 text-primary w-4 h-4 animate-float" 
+                      strokeWidth={2.5}
+                    />
+                  </span>
+                  <span className="text-2xl font-bold">ttura</span>
+                </>
+              )}
             </Link>
             <span className="text-sm text-muted-foreground mt-1.5">
               {isRTL ? 'متحف المملكة الرقمي' : 'The Digital Art Museum'}
@@ -122,7 +137,6 @@ const Navigation = ({ isRTL = false }: { isRTL?: boolean }) => {
           </div>
         </div>
 
-        {/* Mobile menu */}
         {isMobile && isMenuOpen && (
           <div className="absolute top-full left-0 right-0 bg-background/95 backdrop-blur-md border-b animate-fade-in p-4">
             <div className="flex flex-col space-y-4">
@@ -152,7 +166,6 @@ const Navigation = ({ isRTL = false }: { isRTL?: boolean }) => {
         )}
       </nav>
 
-      {/* Mega Menu */}
       {isMegaMenuOpen && !isMobile && (
         <MegaMenu 
           isRTL={isRTL} 
