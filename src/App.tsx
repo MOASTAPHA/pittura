@@ -17,6 +17,7 @@ import AuctionSection from "./pages/AuctionSection";
 import ArtifactExplorer from "./pages/ArtifactExplorer";
 import PanoramaExperience from "./pages/PanoramaExperience";
 import HeritageExperience from "./pages/HeritageExperience";
+import About from "./pages/About";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +43,7 @@ const App = () => (
           <Route path="/360-experience" element={<PanoramaExperience />} />
           <Route path="/360-experience/:locationId" element={<PanoramaExperience />} />
           <Route path="/heritage-experience" element={<HeritageExperience />} />
+          <Route path="/about" element={<About />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
