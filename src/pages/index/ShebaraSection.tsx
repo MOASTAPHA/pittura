@@ -25,18 +25,18 @@ interface ShebaraSectionProps {
 
 const SHEBARA_IMAGES = [
   {
-    src: "https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=3270&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1535916707207-35f97e715e1c?q=80&w=3174&auto=format&fit=crop",
     alt: "Shebara Overwater Villas",
     aspect: "aspect-[16/10]",
   },
   {
-    src: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=2670&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=3270&auto=format&fit=crop",
     alt: "Shebara Aerial View",
     aspect: "aspect-[16/9]",
   },
   {
-    src: "https://images.unsplash.com/photo-1610641818989-c2051b5e2cfd?q=80&w=2670&auto=format&fit=crop",
-    alt: "Shebara Turquoise Waters",
+    src: "https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=2940&auto=format&fit=crop",
+    alt: "Heritage Architecture",
     aspect: "aspect-[16/9]",
   }
 ];

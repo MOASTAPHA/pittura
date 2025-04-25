@@ -3,16 +3,16 @@ import { motion } from "framer-motion";
 
 const HEGRA_IMAGES = [
   {
-    src: "/lovable-uploads/6dafc339-95be-44ac-82c8-a6c32f29c305.png", // Uploaded image
-    alt: "Hegra Monuments",
+    src: "https://images.unsplash.com/photo-1604933763107-0ca407884e40?q=80&w=2946&auto=format&fit=crop",
+    alt: "Ancient Nabataean Tombs at Hegra",
   },
   {
-    src: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?q=80&w=1200&auto=format&fit=crop",
-    alt: "Desert Landscape near Hegra",
+    src: "https://images.unsplash.com/photo-1482881497185-d4a9ddbe4151?q=80&w=3024&auto=format&fit=crop",
+    alt: "Desert Landscape of AlUla",
   },
   {
-    src: "https://images.unsplash.com/photo-1482881497185-d4a9ddbe4151?q=80&w=1200&auto=format&fit=crop",
-    alt: "AlUla Desert Sand",
+    src: "https://images.unsplash.com/photo-1577098770706-93bbde0f914f?q=80&w=2938&auto=format&fit=crop",
+    alt: "Artistic Desert Architecture",
   },
 ];
 
