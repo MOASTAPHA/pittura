@@ -1,8 +1,7 @@
-
 import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useThreeScene } from '@/hooks/useThreeScene';
-import { ZoomIn, ZoomOut, RotateCcw, Gesture } from 'lucide-react';
+import { ZoomIn, ZoomOut, RotateCcw, Hand } from 'lucide-react';
 
 interface SimpleInteractiveViewerProps {
   modelUrl: string;
@@ -34,7 +33,6 @@ const SimpleInteractiveViewer = ({
     onZoomChange: setZoom
   });
   
-  // Mouse movement tracking for gesture simulation
   useEffect(() => {
     if (!isGestureMode || !containerRef.current) return;
     
@@ -48,22 +46,17 @@ const SimpleInteractiveViewer = ({
       const rect = containerRef.current?.getBoundingClientRect();
       if (!rect) return;
       
-      // Calculate relative position in the container (0-1)
       const relX = (e.clientX - rect.left) / rect.width;
       const relY = (e.clientY - rect.top) / rect.height;
       
-      // Calculate movement
       if (isMoving) {
         const deltaX = e.clientX - lastX;
         const deltaY = e.clientY - lastY;
         
-        // Determine if horizontal or vertical movement is dominant
         if (Math.abs(deltaX) > Math.abs(deltaY) * 1.5) {
-          // Horizontal gesture - rotate
           rotateModel(-deltaX * 0.01, 0);
           showInteractionStatus('Rotating');
         } else if (Math.abs(deltaY) > Math.abs(deltaX) * 1.5) {
-          // Vertical gesture - zoom
           const newZoom = Math.max(1, Math.min(5, zoom + deltaY * 0.01));
           setZoom(newZoom);
           updateCameraZoom(newZoom);
@@ -111,12 +104,10 @@ const SimpleInteractiveViewer = ({
   const showInteractionStatus = (status: string) => {
     setInteractionStatus(status);
     
-    // Clear previous timer if it exists
     if (interactionTimerRef.current) {
       window.clearTimeout(interactionTimerRef.current);
     }
     
-    // Set a timeout to clear the status
     interactionTimerRef.current = window.setTimeout(() => {
       setInteractionStatus('');
       interactionTimerRef.current = null;
@@ -142,7 +133,7 @@ const SimpleInteractiveViewer = ({
             onClick={toggleGestureMode}
             className={`h-8 w-8 ${isGestureMode ? 'bg-blue-600 text-white' : 'bg-transparent text-white'}`}
           >
-            <Gesture size={16} />
+            <Hand size={16} />
           </Button>
           <Button
             variant="outline"
