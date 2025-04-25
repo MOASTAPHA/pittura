@@ -1,3 +1,4 @@
+
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
@@ -8,17 +9,17 @@ import { ShebaraFeatures } from '@/components/shebara/ShebaraFeatures';
 
 const SHEBARA_IMAGES = [
   {
-    src: "https://images.unsplash.com/photo-1535916707207-35f97e715e1c?q=80&w=3174&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=3270&auto=format&fit=crop",
     alt: "Shebara Overwater Villas",
     aspect: "aspect-[16/10]",
   },
   {
-    src: "https://images.unsplash.com/photo-1540541338287-41700207dee6?q=80&w=3270&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1479293946690-ebcedfc9f4a3?q=80&w=3270&auto=format&fit=crop",
     alt: "Shebara Aerial View",
     aspect: "aspect-[16/9]",
   },
   {
-    src: "https://images.unsplash.com/photo-1528127269322-539801943592?q=80&w=2940&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1596394723269-b2cbca4e6463?q=80&w=3270&auto=format&fit=crop",
     alt: "Heritage Architecture",
     aspect: "aspect-[16/9]",
   }
@@ -78,7 +79,7 @@ const ShebaraSection = ({ isRTL }: ShebaraSectionProps) => {
         initial={{ y: -20 }}
         animate={{ y: 0 }}
         transition={{ duration: 20, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
-        className="absolute top-0 right-0 lg:w-1/2 w-full h-96 bg-[url('https://images.unsplash.com/photo-1615529328331-f8917597711f?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-no-repeat opacity-10 pointer-events-none z-0"
+        className="absolute top-0 right-0 lg:w-1/2 w-full h-96 bg-[url('https://images.unsplash.com/photo-1598908314732-07113901949e?q=80&w=3270&auto=format&fit=crop')] bg-cover bg-no-repeat opacity-10 pointer-events-none z-0"
       />
           
       <div className="container mx-auto px-6 relative z-10">

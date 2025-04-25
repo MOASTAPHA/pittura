@@ -3,15 +3,15 @@ import { motion } from "framer-motion";
 
 const HEGRA_IMAGES = [
   {
-    src: "https://images.unsplash.com/photo-1604933763107-0ca407884e40?q=80&w=2946&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1619231786606-2b57b3a3978c?q=80&w=3270&auto=format&fit=crop",
     alt: "Ancient Nabataean Tombs at Hegra",
   },
   {
-    src: "https://images.unsplash.com/photo-1482881497185-d4a9ddbe4151?q=80&w=3024&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1650275854232-5ffa5513dae5?q=80&w=3270&auto=format&fit=crop",
     alt: "Desert Landscape of AlUla",
   },
   {
-    src: "https://images.unsplash.com/photo-1577098770706-93bbde0f914f?q=80&w=2938&auto=format&fit=crop",
+    src: "https://images.unsplash.com/photo-1632161427183-85ea6fd13647?q=80&w=3174&auto=format&fit=crop",
     alt: "Artistic Desert Architecture",
   },
 ];
@@ -88,4 +88,3 @@ const AlUlaSection = ({ isRTL }: AlUlaSectionProps) => {
 };
 
 export default AlUlaSection;
-

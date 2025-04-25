@@ -1,7 +1,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Box } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import SearchBar from './SearchBar';
 import { useNavigate } from 'react-router-dom';
 import PanoramaViewer from './PanoramaViewer';
@@ -19,9 +19,9 @@ const HeroSection = ({ isRTL = false }: HeroSectionProps) => {
   const navigate = useNavigate();
   
   const backgrounds = [
-    "https://images.unsplash.com/photo-1466442929976-97f336a657be?q=80&w=2834&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1492321936769-b49830bc1d1e?q=80&w=2671&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1482881497185-d4a9ddbe4151?q=80&w=3024&auto=format&fit=crop"
+    "https://images.unsplash.com/photo-1488747279002-c8523379faaa?q=80&w=3174&auto=format&fit=crop", // Historic archway with artistic framing
+    "https://images.unsplash.com/photo-1528122819781-e0391674181b?q=80&w=3270&auto=format&fit=crop", // Desert landscape with warm tones
+    "https://images.unsplash.com/photo-1591474200742-8e512e6f98f8?q=80&w=3270&auto=format&fit=crop"  // Heritage architectural details
   ];
 
   useEffect(() => {

@@ -27,7 +27,7 @@ export const ShebaraGallery = ({ images, isRTL }: ShebaraGalleryProps) => (
         transition={{ duration: 0.5 }}
       >
         <img
-          src={images[1].src}
+          src="https://images.unsplash.com/photo-1479293946690-ebcedfc9f4a3?q=80&w=3270&auto=format&fit=crop"
           alt={images[1].alt}
           className={`object-cover w-full h-64 lg:h-96 ${images[1].aspect} transition-transform duration-700 group-hover:scale-105`}
           style={{ filter: "brightness(0.96) saturate(1.15)" }}
@@ -46,7 +46,7 @@ export const ShebaraGallery = ({ images, isRTL }: ShebaraGalleryProps) => (
           transition={{ duration: 0.5 }}
         >
           <img
-            src={images[0].src}
+            src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=3270&auto=format&fit=crop"
             alt={images[0].alt}
             className="object-cover w-full h-40 lg:h-60 transition-transform duration-700 group-hover:scale-105"
             style={{ filter: "brightness(0.95) saturate(1.2)" }}
@@ -64,7 +64,7 @@ export const ShebaraGallery = ({ images, isRTL }: ShebaraGalleryProps) => (
           transition={{ duration: 0.5 }}
         >
           <img
-            src={images[2].src}
+            src="https://images.unsplash.com/photo-1596394723269-b2cbca4e6463?q=80&w=3270&auto=format&fit=crop"
             alt={images[2].alt}
             className="object-cover w-full h-40 lg:h-60 transition-transform duration-700 group-hover:scale-102"
             style={{ filter: "contrast(1.07) brightness(1.03)" }}

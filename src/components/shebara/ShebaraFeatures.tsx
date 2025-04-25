@@ -31,7 +31,8 @@ export const ShebaraFeatures = ({ features }: ShebaraFeaturesProps) => (
         </div>
         <h4 className="text-2xl font-playfair font-semibold text-museum-brown mb-3 mt-8">{f.title}</h4>
         <p className="text-neutral-800">{f.description}</p>
-        <div className="absolute bottom-1 right-4 w-12 h-2 bg-gradient-to-r from-blue-300 via-blue-50/80 to-transparent rounded-xl blur-lg opacity-60 pointer-events-none animate-float"></div>
+        <div className="absolute bottom-1 right-4 w-16 h-3 bg-gradient-to-r from-blue-300 via-blue-50/80 to-transparent rounded-xl blur-lg opacity-60 pointer-events-none animate-float"></div>
+        <div className="absolute -bottom-6 -left-10 w-20 h-20 rounded-full bg-gradient-to-tr from-blue-300/10 to-transparent rotate-45 opacity-0 group-hover:opacity-70 transition-opacity"></div>
       </motion.div>
     ))}
   </motion.div>
