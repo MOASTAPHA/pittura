@@ -18,6 +18,7 @@ import ArtifactExplorer from "./pages/ArtifactExplorer";
 import PanoramaExperience from "./pages/PanoramaExperience";
 import HeritageExperience from "./pages/HeritageExperience";
 import About from "./pages/About";
+import InteractiveViewer from "./pages/InteractiveViewer";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +45,7 @@ const App = () => (
           <Route path="/360-experience/:locationId" element={<PanoramaExperience />} />
           <Route path="/heritage-experience" element={<HeritageExperience />} />
           <Route path="/about" element={<About />} />
+          <Route path="/interactive" element={<InteractiveViewer />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

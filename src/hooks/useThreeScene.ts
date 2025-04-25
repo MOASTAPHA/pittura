@@ -1,202 +1,183 @@
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
-interface ThreeSceneConfig {
+interface UseThreeSceneProps {
   modelUrl: string;
-  zoom: number;
+  zoom?: number;
   onZoomChange?: (zoom: number) => void;
+  backgroundColor?: string | number;
 }
 
-export const useThreeScene = ({ modelUrl, zoom, onZoomChange }: ThreeSceneConfig) => {
+export const useThreeScene = ({
+  modelUrl,
+  zoom = 2,
+  onZoomChange,
+  backgroundColor = 0x222222
+}: UseThreeSceneProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const sceneRef = useRef<THREE.Scene | null>(null);
+  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+  const controlsRef = useRef<OrbitControls | null>(null);
+  const modelRef = useRef<THREE.Group | null>(null);
+  const frameIdRef = useRef<number | null>(null);
+  
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  // Store references to Three.js objects for cleanup
-  const sceneRef = useRef<THREE.Scene | null>(null);
-  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
-  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
-  const controlsRef = useRef<OrbitControls | null>(null);
-  const modelRef = useRef<THREE.Object3D | null>(null);
-
-  const loadDefaultModel = (scene: THREE.Scene) => {
-    // Create a fallback simple geometry when model fails to load
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshStandardMaterial({ 
-      color: 0x6080ff,
-      metalness: 0.3,
-      roughness: 0.4,
-    });
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
-    modelRef.current = cube;
-    
-    // Add simple animation
-    const animate = () => {
-      if (cube && !hasError) {
-        cube.rotation.y += 0.01;
-        requestAnimationFrame(animate);
-      }
-    };
-    animate();
-    
-    setIsLoading(false);
-  };
-
-  const loadModel = (scene: THREE.Scene, url: string) => {
-    setIsLoading(true);
-    const loader = new GLTFLoader();
-    
-    // First check if URL is accessible
-    fetch(url)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Failed to fetch model: ${response.status} ${response.statusText}`);
-        }
-        // If URL is accessible, proceed with GLTFLoader
-        loader.load(
-          url,
-          (gltf) => {
-            const model = gltf.scene;
-            const box = new THREE.Box3().setFromObject(model);
-            const center = box.getCenter(new THREE.Vector3());
-            model.position.sub(center);
-
-            const size = box.getSize(new THREE.Vector3());
-            const maxDim = Math.max(size.x, size.y, size.z);
-            if (maxDim > 0) {
-              model.scale.multiplyScalar(1.5 / maxDim);
-            }
-
-            scene.add(model);
-            modelRef.current = model;
-            setIsLoading(false);
-          },
-          (xhr) => {
-            const progress = (xhr.loaded / xhr.total) * 100;
-            console.log(`Loading model: ${Math.round(progress)}%`);
-          },
-          (error) => {
-            console.error('Error loading model:', error);
-            setHasError(true);
-            loadDefaultModel(scene);
-          }
-        );
-      })
-      .catch(error => {
-        console.error('Error fetching model URL:', error);
-        setHasError(true);
-        loadDefaultModel(scene);
-      });
-  };
-
+  // Initialize the scene
   useEffect(() => {
     if (!canvasRef.current || !containerRef.current) return;
-
-    const initThreeJs = () => {
-      try {
-        const container = containerRef.current;
-        if (!container) return;
-
-        // Scene setup
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x222222);
-        sceneRef.current = scene;
-
-        // Camera setup
-        const aspect = container.clientWidth / container.clientHeight;
-        const camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 1000);
-        camera.position.set(0, 0, zoom);
-        cameraRef.current = camera;
-
-        // Renderer setup
-        const renderer = new THREE.WebGLRenderer({
-          canvas: canvasRef.current!,
-          antialias: true,
-          alpha: true
-        });
-        renderer.setSize(container.clientWidth, container.clientHeight);
-        renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.outputEncoding = THREE.sRGBEncoding;
-        rendererRef.current = renderer;
-
-        // Lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
-        scene.add(ambientLight);
-
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-        directionalLight.position.set(1, 1, 1);
-        scene.add(directionalLight);
-
-        // Controls
-        const controls = new OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-        controls.dampingFactor = 0.05;
-        controls.screenSpacePanning = false;
-        controls.enableZoom = true;
-        controls.minDistance = 1;
-        controls.maxDistance = 10;
-        controlsRef.current = controls;
-
-        // Load the 3D model (with network error handling via fetch)
-        loadModel(scene, modelUrl);
-
-        // Animation loop
-        const animate = () => {
-          if (!controlsRef.current || !rendererRef.current || !sceneRef.current || !cameraRef.current) return;
-          
-          requestAnimationFrame(animate);
-          controlsRef.current.update();
-          rendererRef.current.render(sceneRef.current, cameraRef.current);
-        };
-
-        // Handle window resize
-        const handleResize = () => {
-          if (!container || !cameraRef.current || !rendererRef.current) return;
-          
-          const newAspect = container.clientWidth / container.clientHeight;
-          cameraRef.current.aspect = newAspect;
-          cameraRef.current.updateProjectionMatrix();
-          rendererRef.current.setSize(container.clientWidth, container.clientHeight);
-        };
-
-        window.addEventListener('resize', handleResize);
-        animate();
-
-        return () => {
-          window.removeEventListener('resize', handleResize);
-          controlsRef.current?.dispose();
-          rendererRef.current?.dispose();
-          if (modelRef.current) {
-            scene.remove(modelRef.current);
-            modelRef.current.traverse((child) => {
-              if (child instanceof THREE.Mesh) {
-                child.geometry.dispose();
-                if (child.material instanceof THREE.Material) {
-                  child.material.dispose();
-                } else if (Array.isArray(child.material)) {
-                  child.material.forEach(material => material.dispose());
-                }
-              }
-            });
-          }
-        };
-      } catch (error) {
-        console.error('Error initializing Three.js:', error);
-        setHasError(true);
-        setIsLoading(false);
+    
+    // Setup scene, camera, renderer
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(backgroundColor);
+    sceneRef.current = scene;
+    
+    const aspectRatio = containerRef.current.clientWidth / containerRef.current.clientHeight;
+    const camera = new THREE.PerspectiveCamera(75, aspectRatio, 0.1, 1000);
+    camera.position.z = zoom;
+    cameraRef.current = camera;
+    
+    const renderer = new THREE.WebGLRenderer({
+      canvas: canvasRef.current,
+      antialias: true,
+      alpha: true
+    });
+    renderer.setSize(containerRef.current.clientWidth, containerRef.current.clientHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    rendererRef.current = renderer;
+    
+    // Add lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+    
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(0, 5, 10);
+    scene.add(directionalLight);
+    
+    // Add OrbitControls
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.minDistance = 1;
+    controls.maxDistance = 10;
+    controlsRef.current = controls;
+    
+    // Load model
+    loadModel();
+    
+    // Animation loop
+    const animate = () => {
+      frameIdRef.current = requestAnimationFrame(animate);
+      
+      if (controlsRef.current) {
+        controlsRef.current.update();
+      }
+      
+      if (rendererRef.current && sceneRef.current && cameraRef.current) {
+        rendererRef.current.render(sceneRef.current, cameraRef.current);
       }
     };
-
-    const cleanup = initThreeJs();
-    return () => {
-      if (cleanup) cleanup();
+    
+    animate();
+    
+    // Handle resize
+    const handleResize = () => {
+      if (!containerRef.current || !rendererRef.current || !cameraRef.current) return;
+      
+      const width = containerRef.current.clientWidth;
+      const height = containerRef.current.clientHeight;
+      
+      rendererRef.current.setSize(width, height);
+      
+      cameraRef.current.aspect = width / height;
+      cameraRef.current.updateProjectionMatrix();
     };
-  }, [modelUrl, zoom]);
+    
+    window.addEventListener('resize', handleResize);
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      
+      if (frameIdRef.current !== null) {
+        cancelAnimationFrame(frameIdRef.current);
+      }
+      
+      if (rendererRef.current) {
+        rendererRef.current.dispose();
+      }
+      
+      if (controlsRef.current) {
+        controlsRef.current.dispose();
+      }
+    };
+  }, [backgroundColor]);
+  
+  // Load the 3D model
+  const loadModel = () => {
+    setIsLoading(true);
+    setHasError(false);
+    
+    if (!sceneRef.current) return;
+    
+    // Remove previous model if it exists
+    if (modelRef.current) {
+      sceneRef.current.remove(modelRef.current);
+      modelRef.current = null;
+    }
+    
+    const loader = new GLTFLoader();
+    
+    loader.load(
+      modelUrl,
+      (gltf) => {
+        const model = gltf.scene;
+        
+        // Center the model
+        const box = new THREE.Box3().setFromObject(model);
+        const center = box.getCenter(new THREE.Vector3());
+        model.position.x = -center.x;
+        model.position.y = -center.y;
+        model.position.z = -center.z;
+        
+        // Scale the model to a reasonable size
+        const size = box.getSize(new THREE.Vector3()).length();
+        const scale = 2 / size;
+        model.scale.set(scale, scale, scale);
+        
+        modelRef.current = model;
+        sceneRef.current?.add(model);
+        
+        setIsLoading(false);
+      },
+      undefined,
+      (error) => {
+        console.error('Error loading model:', error);
+        setIsLoading(false);
+        setHasError(true);
+      }
+    );
+  };
+
+  // Update model when URL changes
+  useEffect(() => {
+    if (sceneRef.current) {
+      loadModel();
+    }
+  }, [modelUrl]);
+
+  // Update camera zoom when zoom prop changes
+  useEffect(() => {
+    if (cameraRef.current) {
+      cameraRef.current.position.z = zoom;
+    }
+  }, [zoom]);
 
   const updateCameraZoom = (newZoom: number) => {
     if (cameraRef.current) {
@@ -204,12 +185,22 @@ export const useThreeScene = ({ modelUrl, zoom, onZoomChange }: ThreeSceneConfig
       onZoomChange?.(newZoom);
     }
   };
-
+  
   const resetView = () => {
-    if (cameraRef.current && controlsRef.current) {
-      cameraRef.current.position.set(0, 0, 2);
+    if (controlsRef.current) {
       controlsRef.current.reset();
+    }
+    
+    if (cameraRef.current) {
+      cameraRef.current.position.z = 2;
       onZoomChange?.(2);
+    }
+  };
+  
+  const rotateModel = (deltaX: number, deltaY: number) => {
+    if (modelRef.current) {
+      modelRef.current.rotation.y += deltaX;
+      modelRef.current.rotation.x += deltaY;
     }
   };
 
@@ -219,6 +210,9 @@ export const useThreeScene = ({ modelUrl, zoom, onZoomChange }: ThreeSceneConfig
     isLoading,
     hasError,
     updateCameraZoom,
-    resetView
+    resetView,
+    rotateModel,
+    sceneRef,
+    modelRef
   };
 };
