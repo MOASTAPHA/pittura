@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
-import { MapPin, Eye, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Eye, ArrowRight, ArrowLeft } from 'lucide-react';
+import HeritageMap from '@/components/HeritageMap';
 
 interface HeritageSite {
   id: number;
@@ -9,6 +10,7 @@ interface HeritageSite {
   region: string;
   description: string;
   imageUrl: string;
+  coords: [number, number];
 }
 
 const Index = () => {
