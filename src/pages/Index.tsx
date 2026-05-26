@@ -18,6 +18,12 @@ const Index = () => {
   const [isRTL, setIsRTL] = useState(true);
   const location = useLocation();
   const [selectedSite, setSelectedSite] = useState<HeritageSite | null>(null);
+  const [detailsSite, setDetailsSite] = useState<HeritageSite | null>(null);
+
+  const openDetails = (site: HeritageSite) => {
+    setSelectedSite(site);
+    setDetailsSite(site);
+  };
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
