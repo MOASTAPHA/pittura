@@ -82,7 +82,7 @@ const Index = () => {
             selectedId={selectedSite?.id ?? null}
             onSelect={(id) => {
               const s = heritageSites.find((x) => x.id === id);
-              if (s) setSelectedSite(s);
+              if (s) openDetails(s);
             }}
             isRTL={isRTL}
           />
