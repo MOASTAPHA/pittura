@@ -108,7 +108,7 @@ const Index = () => {
             {heritageSites.map((site) => (
               <article
                 key={site.id}
-                onClick={() => setSelectedSite(site)}
+                onClick={() => openDetails(site)}
                 className={`group cursor-pointer bg-white/80 hover:bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border ${
                   selectedSite?.id === site.id
                     ? 'border-[#B8945F] ring-2 ring-[#B8945F]/40'
