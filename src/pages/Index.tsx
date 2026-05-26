@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
-import { Eye, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Eye, ArrowRight, ArrowLeft, MapPin, X, Play } from 'lucide-react';
 import HeritageMap from '@/components/HeritageMap';
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 
 interface HeritageSite {
   id: number;
@@ -17,6 +18,12 @@ const Index = () => {
   const [isRTL, setIsRTL] = useState(true);
   const location = useLocation();
   const [selectedSite, setSelectedSite] = useState<HeritageSite | null>(null);
+  const [detailsSite, setDetailsSite] = useState<HeritageSite | null>(null);
+
+  const openDetails = (site: HeritageSite) => {
+    setSelectedSite(site);
+    setDetailsSite(site);
+  };
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -75,7 +82,7 @@ const Index = () => {
             selectedId={selectedSite?.id ?? null}
             onSelect={(id) => {
               const s = heritageSites.find((x) => x.id === id);
-              if (s) setSelectedSite(s);
+              if (s) openDetails(s);
             }}
             isRTL={isRTL}
           />
@@ -101,7 +108,7 @@ const Index = () => {
             {heritageSites.map((site) => (
               <article
                 key={site.id}
-                onClick={() => setSelectedSite(site)}
+                onClick={() => openDetails(site)}
                 className={`group cursor-pointer bg-white/80 hover:bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border ${
                   selectedSite?.id === site.id
                     ? 'border-[#B8945F] ring-2 ring-[#B8945F]/40'
@@ -144,6 +151,56 @@ const Index = () => {
           </div>
         </aside>
       </main>
+
+      {/* Details Modal */}
+      <Dialog open={!!detailsSite} onOpenChange={(o) => !o && setDetailsSite(null)}>
+        <DialogContent
+          dir={isRTL ? 'rtl' : 'ltr'}
+          className="max-w-2xl p-0 overflow-hidden border-0 bg-[#FBF7EF] rounded-3xl [&>button]:hidden"
+        >
+          {detailsSite && (
+            <>
+              <div className="relative h-72 w-full overflow-hidden">
+                <img
+                  src={detailsSite.imageUrl}
+                  alt={detailsSite.name}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#3D2E1A]/90 via-[#3D2E1A]/30 to-transparent" />
+                <button
+                  onClick={() => setDetailsSite(null)}
+                  className={`absolute top-4 ${isRTL ? 'left-4' : 'right-4'} w-9 h-9 rounded-full bg-white/90 hover:bg-white flex items-center justify-center shadow-lg transition`}
+                  aria-label="Close"
+                >
+                  <X className="w-4 h-4 text-[#3D2E1A]" />
+                </button>
+                <div className={`absolute bottom-5 ${isRTL ? 'right-6' : 'left-6'} text-white`}>
+                  <span className="inline-flex items-center gap-1.5 text-xs font-medium bg-[#B8945F] px-3 py-1 rounded-full">
+                    <MapPin className="w-3 h-3" />
+                    {detailsSite.region}
+                  </span>
+                  <DialogTitle className="mt-3 text-3xl font-bold drop-shadow">
+                    {detailsSite.name}
+                  </DialogTitle>
+                </div>
+              </div>
+
+              <div className="p-8 space-y-6">
+                <DialogDescription className="text-[#5C4A2E] text-base leading-loose">
+                  {detailsSite.description}
+                </DialogDescription>
+
+                <button
+                  className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#B8945F] to-[#8B6F3F] hover:from-[#C9A570] hover:to-[#9C7F4F] text-white font-bold py-4 rounded-2xl shadow-lg shadow-[#B8945F]/30 transition-all hover:shadow-xl hover:scale-[1.01]"
+                >
+                  <Play className="w-5 h-5 fill-current" />
+                  ابدأ الجولة الافتراضية 360°
+                </button>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
