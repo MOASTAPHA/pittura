@@ -32,6 +32,7 @@ const Index = () => {
         'أول موقع في السعودية ينضم لقائمة التراث العالمي لليونسكو. يتميز بالواجهات الصخرية النبطية المنحوتة بدقة.',
       imageUrl:
         'https://images.unsplash.com/photo-1533408648768-c09bb62b670c?auto=format&fit=crop&q=80&w=1200',
+      coords: [26.7917, 37.9533],
     },
     {
       id: 2,
@@ -41,6 +42,7 @@ const Index = () => {
         'مهد الدولة السعودية الأولى، يتميز بعمارته النجدية الفريدة ومبانيه الطينية العريقة.',
       imageUrl:
         'https://images.unsplash.com/photo-1549144674-042496a1c191?auto=format&fit=crop&q=80&w=1200',
+      coords: [24.7340, 46.5750],
     },
     {
       id: 3,
@@ -50,6 +52,7 @@ const Index = () => {
         'بوابة مكة المكرمة، تشتهر بمبانيها المتعددة الطوابق ورواشينها الخشبية التقليدية.',
       imageUrl:
         'https://images.unsplash.com/photo-1603651780584-6c3284e5d819?auto=format&fit=crop&q=80&w=1200',
+      coords: [21.4858, 39.1925],
     },
   ];
 
