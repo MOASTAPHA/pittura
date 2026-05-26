@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
+import { useLanguage } from '@/contexts/LanguageContext';
 
-const Footer = ({ isRTL = false }: { isRTL?: boolean }) => {
+const Footer = ({ isRTL: isRTLProp }: { isRTL?: boolean } = {}) => {
+  const { isRTL: ctxRTL } = useLanguage();
+  const isRTL = isRTLProp ?? ctxRTL;
   const currentYear = new Date().getFullYear();
   
   return (
