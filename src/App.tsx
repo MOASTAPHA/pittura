@@ -19,6 +19,7 @@ import PanoramaExperience from "./pages/PanoramaExperience";
 import HeritageExperience from "./pages/HeritageExperience";
 import About from "./pages/About";
 import InteractiveViewer from "./pages/InteractiveViewer";
+import LocationPanorama from "./pages/LocationPanorama";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +47,7 @@ const App = () => (
           <Route path="/heritage-experience" element={<HeritageExperience />} />
           <Route path="/about" element={<About />} />
           <Route path="/interactive" element={<InteractiveViewer />} />
+          <Route path="/location/panorama" element={<LocationPanorama />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
