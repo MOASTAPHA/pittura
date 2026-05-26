@@ -89,11 +89,18 @@ const VirtualToursSection = ({ isRTL }: Props) => {
               {isRTL ? 'جولات افتراضية بزاوية 360°' : '360° Virtual Tours'}
             </span>
           </motion.h2>
-          <Link to="/360-experience">
-            <Button variant="outline" className="rounded-full border-[#bba269] shadow-md hover:bg-[#e2c591]/20 transition-colors font-semibold">
-              {isRTL ? 'عرض الكل' : 'View All'}
-            </Button>
-          </Link>
+          <div className="flex gap-2">
+            <Link to="/location/panorama">
+              <Button className="rounded-full bg-gradient-to-r from-[#bba269] to-[#b07cf3] text-white font-semibold shadow-md">
+                {isRTL ? 'تجربة 360°' : 'Try 360° Demo'}
+              </Button>
+            </Link>
+            <Link to="/360-experience">
+              <Button variant="outline" className="rounded-full border-[#bba269] shadow-md hover:bg-[#e2c591]/20 transition-colors font-semibold">
+                {isRTL ? 'عرض الكل' : 'View All'}
+              </Button>
+            </Link>
+          </div>
         </div>
         <motion.div
           className="grid grid-cols-1 md:grid-cols-3 gap-8"
