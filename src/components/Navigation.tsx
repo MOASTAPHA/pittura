@@ -134,7 +134,7 @@ const Navigation = ({ isRTL = false }: { isRTL?: boolean }) => {
           )}
 
           <div className="flex items-center gap-3">
-            <LanguageSwitcher currentLang={isRTL ? 'ar' : 'en'} />
+            <LanguageSwitcher />
             
             <Button variant="ghost" size="icon" className="rounded-full hover:bg-secondary/50" asChild>
               <Link to="/search">
