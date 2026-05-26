@@ -21,6 +21,7 @@ import About from "./pages/About";
 import InteractiveViewer from "./pages/InteractiveViewer";
 import LocationPanorama from "./pages/LocationPanorama";
 import MarketingCopy from "./pages/MarketingCopy";
+import ArabicCampaign from "./pages/ArabicCampaign";
 
 const queryClient = new QueryClient();
 
@@ -50,6 +51,7 @@ const App = () => (
           <Route path="/interactive" element={<InteractiveViewer />} />
           <Route path="/location/panorama" element={<LocationPanorama />} />
           <Route path="/marketing-copy" element={<MarketingCopy />} />
+          <Route path="/arabic-campaign" element={<ArabicCampaign />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
