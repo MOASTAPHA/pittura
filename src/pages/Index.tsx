@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
-import { Eye, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Eye, ArrowRight, ArrowLeft, MapPin, X, Play } from 'lucide-react';
 import HeritageMap from '@/components/HeritageMap';
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 
 interface HeritageSite {
   id: number;
