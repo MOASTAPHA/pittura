@@ -7,7 +7,11 @@ import LanguageSwitcher from './LanguageSwitcher';
 import { useIsMobile } from '@/hooks/use-mobile';
 import MegaMenu from './MegaMenu';
 
-const Navigation = ({ isRTL = false }: { isRTL?: boolean }) => {
+import { useLanguage } from '@/contexts/LanguageContext';
+
+const Navigation = ({ isRTL: isRTLProp }: { isRTL?: boolean } = {}) => {
+  const { isRTL: ctxRTL } = useLanguage();
+  const isRTL = isRTLProp ?? ctxRTL;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
@@ -134,7 +138,7 @@ const Navigation = ({ isRTL = false }: { isRTL?: boolean }) => {
           )}
 
           <div className="flex items-center gap-3">
-            <LanguageSwitcher currentLang={isRTL ? 'ar' : 'en'} />
+            <LanguageSwitcher />
             
             <Button variant="ghost" size="icon" className="rounded-full hover:bg-secondary/50" asChild>
               <Link to="/search">
