@@ -63,24 +63,22 @@ const Index = () => {
       <Navigation isRTL={isRTL} />
 
       <main className="relative w-full h-[calc(100vh-80px)] overflow-hidden bg-[#F5F0E8]">
-        {/* 1. Interactive map background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#E8DCC4] via-[#D9C9A8] to-[#C9B894]">
-          <div
-            className="absolute inset-0 opacity-30"
-            style={{
-              backgroundImage:
-                "url('https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&q=80&w=2000')",
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
+        {/* 1. Interactive Leaflet map background */}
+        <div className="absolute inset-0">
+          <HeritageMap
+            sites={heritageSites.map((s) => ({
+              id: s.id,
+              name: s.name,
+              region: s.region,
+              coords: s.coords,
+            }))}
+            selectedId={selectedSite?.id ?? null}
+            onSelect={(id) => {
+              const s = heritageSites.find((x) => x.id === id);
+              if (s) setSelectedSite(s);
             }}
+            isRTL={isRTL}
           />
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-[#5C4A2E]/70 pointer-events-none">
-            <MapPin className="w-12 h-12 mb-3" />
-            <h2 className="text-2xl font-semibold">خريطة بيتورا التفاعلية</h2>
-            <p className="text-sm mt-2 max-w-md px-4">
-              ستظهر هنا الخريطة التفاعلية مع نقاط المواقع التراثية في المملكة.
-            </p>
-          </div>
         </div>
 
         {/* 2. Glassmorphism sidebar */}
