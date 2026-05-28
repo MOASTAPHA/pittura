@@ -7,9 +7,10 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Register = () => {
-  const [isRTL, setIsRTL] = useState(false);
+  const { isRTL } = useLanguage();
   const location = useLocation();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -19,9 +20,7 @@ const Register = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Check URL for language parameter
-    const params = new URLSearchParams(location.search);
-    setIsRTL(params.get('lang') === 'ar');
+    // Keep this empty or remove it if not needed for anything else.
   }, [location]);
 
   const handleSubmit = (e: React.FormEvent) => {

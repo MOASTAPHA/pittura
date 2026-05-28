@@ -1,233 +1,133 @@
-
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, Search, User, BookOpen, Boxes, Library, BookOpenText, Gem, X } from 'lucide-react';
+import { Menu, User, Gem, X } from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useIsMobile } from '@/hooks/use-mobile';
-import MegaMenu from './MegaMenu';
-
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const Navigation = ({ isRTL: isRTLProp }: { isRTL?: boolean } = {}) => {
   const { isRTL: ctxRTL } = useLanguage();
   const isRTL = isRTLProp ?? ctxRTL;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
-  const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const isMobile = useIsMobile();
   const location = useLocation();
 
-  // Handle scroll effect
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close the menu when changing routes
   useEffect(() => {
     setIsMenuOpen(false);
-    closeMegaMenu();
   }, [location.pathname]);
 
-  const toggleMegaMenu = (menuName: string) => {
-    if (activeMegaMenu === menuName) {
-      setIsMegaMenuOpen(false);
-      setActiveMegaMenu(null);
-    } else {
-      setIsMegaMenuOpen(true);
-      setActiveMegaMenu(menuName);
-    }
-  };
-
-  const closeMegaMenu = () => {
-    setIsMegaMenuOpen(false);
-    setActiveMegaMenu(null);
-  };
+  const navLinks = [
+    { to: '/', label: { en: 'Home', ar: 'الرئيسية' } },
+    { to: '/explore', label: { en: 'Explore', ar: 'استكشف' } },
+    { to: '/about', label: { en: 'About', ar: 'عن المتحف' } },
+    { to: '/contact', label: { en: 'Contact', ar: 'اتصل بنا' } },
+    { to: '/membership', label: { en: 'Membership', ar: 'العضويات' } },
+  ];
 
   return (
-    <>
-      <nav className={`py-4 px-6 ${isScrolled ? 'bg-background/95' : 'bg-background/90'} backdrop-blur-md sticky top-0 z-50 border-b transition-all duration-300 ${isRTL ? 'rtl' : ''}`}>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Link to="/" className="relative flex items-center font-playfair">
-              {isRTL ? (
-                <>
-                  <span className="text-2xl font-bold">ب</span>
-                  <span className="relative text-2xl font-bold">
-                    ي
-                    <Gem 
-                      className="absolute -top-3 left-1/2 -translate-x-1/2 text-primary w-4 h-4 animate-float" 
-                      strokeWidth={2.5}
-                    />
-                  </span>
-                  <span className="text-2xl font-bold">تورا</span>
-                </>
-              ) : (
-                <>
-                  <span className="text-2xl font-bold">P</span>
-                  <span className="relative text-2xl font-bold">
-                    i
-                    <Gem 
-                      className="absolute -top-3 left-1/2 -translate-x-1/2 text-primary w-4 h-4 animate-float" 
-                      strokeWidth={2.5}
-                    />
-                  </span>
-                  <span className="text-2xl font-bold">ttura</span>
-                </>
-              )}
-            </Link>
-            <span className="text-sm text-muted-foreground mt-1.5">
-              {isRTL ? 'متحف المملكة الرقمي' : 'The Digital Art Museum'}
+    <nav className={`py-4 px-6 ${isScrolled ? 'bg-white/95 shadow-md' : 'bg-transparent'} backdrop-blur-md fixed top-0 w-full z-50 transition-all duration-300 ${isRTL ? 'rtl' : ''}`}>
+      <div className="max-w-7xl mx-auto flex items-center justify-between">
+        
+        {/* Logo */}
+        <Link to="/" className="relative flex items-center gap-2 group">
+          <div className="w-10 h-10 bg-gradient-to-br from-[#B8945F] to-[#E8C97A] rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+            <Gem className="text-white w-5 h-5" />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-xl font-bold text-[#3D2E1A] font-playfair leading-none">
+              {isRTL ? 'بيتورا' : 'Pittura'}
+            </span>
+            <span className="text-[10px] font-bold tracking-widest text-[#B8945F] uppercase mt-1">
+              {isRTL ? 'متحف التراث' : 'Heritage'}
             </span>
           </div>
+        </Link>
 
-          {!isMobile && (
-            <div className="flex items-center space-x-6">
-              <Link 
-                to="/" 
-                className={`hover:text-primary transition-colors ${location.pathname === '/' ? 'text-primary font-medium' : ''}`}
-              >
-                {isRTL ? 'الرئيسية' : 'Home'}
-              </Link>
-              <Link 
-                to="/heritage-experience" 
-                className={`hover:text-primary transition-colors flex items-center gap-1 ${location.pathname === '/heritage-experience' ? 'text-primary font-medium' : ''}`}
-              >
-                <BookOpenText className="w-4 h-4" />
-                {isRTL ? 'تجربة التراث' : 'Heritage Experience'}
-              </Link>
-              <button 
-                className={`hover:text-primary transition-colors flex items-center gap-1 ${activeMegaMenu === 'artifacts' ? 'text-primary font-medium' : ''}`}
-                onClick={() => toggleMegaMenu('artifacts')}
-              >
-                <Library className="w-4 h-4" />
-                {isRTL ? 'القطع الأثرية' : 'Artifacts'}
-              </button>
-              <button 
-                className={`hover:text-primary transition-colors flex items-center gap-1 ${activeMegaMenu === 'tours' ? 'text-primary font-medium' : ''}`}
-                onClick={() => toggleMegaMenu('tours')}
-              >
-                <BookOpen className="w-4 h-4" />
-                {isRTL ? 'جولات افتراضية' : 'Virtual Tours'}
-              </button>
-              <button 
-                className={`hover:text-primary transition-colors flex items-center gap-1 ${activeMegaMenu === 'holograms' ? 'text-primary font-medium' : ''}`}
-                onClick={() => toggleMegaMenu('holograms')}
-              >
-                <Boxes className="w-4 h-4" />
-                {isRTL ? 'تجربة الهولوجرام' : 'Hologram Experience'}
-              </button>
-              <Link 
-                to="/auction-section" 
-                className={`hover:text-primary transition-colors ${location.pathname === '/auction-section' ? 'text-primary font-medium' : ''}`}
-              >
-                {isRTL ? 'المزادات الثقافية' : 'Cultural Auctions'}
-              </Link>
-              <Link 
-                to="/about" 
-                className={`hover:text-primary transition-colors ${location.pathname === '/about' ? 'text-primary font-medium' : ''}`}
-              >
-                {isRTL ? 'عن المتحف' : 'About'}
-              </Link>
-            </div>
-          )}
-
-          <div className="flex items-center gap-3">
-            <LanguageSwitcher />
-            
-            <Button variant="ghost" size="icon" className="rounded-full hover:bg-secondary/50" asChild>
-              <Link to="/search">
-                <Search className="w-5 h-5" />
-              </Link>
-            </Button>
-            
-            <Button variant="ghost" size="icon" className="rounded-full hover:bg-secondary/50" asChild>
-              <Link to="/login">
-                <User className="w-5 h-5" />
-              </Link>
-            </Button>
-            
-            {isMobile && (
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                className="rounded-full hover:bg-secondary/50"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-              >
-                {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-              </Button>
-            )}
-          </div>
-        </div>
-
-        {isMobile && isMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-background/95 backdrop-blur-md border-b animate-fade-in p-4 shadow-lg">
-            <div className="flex flex-col space-y-4">
-              <Link 
-                to="/" 
-                className={`hover:text-primary transition-colors py-2 px-4 rounded-lg ${location.pathname === '/' ? 'bg-secondary/50 text-primary font-medium' : ''}`}
-              >
-                {isRTL ? 'الرئيسية' : 'Home'}
-              </Link>
-              <Link 
-                to="/heritage-experience" 
-                className={`hover:text-primary transition-colors py-2 px-4 rounded-lg flex items-center gap-2 ${location.pathname === '/heritage-experience' ? 'bg-secondary/50 text-primary font-medium' : ''}`}
-              >
-                <BookOpenText className="w-4 h-4" />
-                {isRTL ? 'تجربة التراث' : 'Heritage Experience'}
-              </Link>
-              <Link 
-                to="/artifacts" 
-                className={`hover:text-primary transition-colors py-2 px-4 rounded-lg flex items-center gap-2 ${location.pathname === '/artifacts' ? 'bg-secondary/50 text-primary font-medium' : ''}`}
-              >
-                <Library className="w-4 h-4" />
-                {isRTL ? 'القطع الأثرية' : 'Artifacts'}
-              </Link>
-              <Link 
-                to="/tours" 
-                className={`hover:text-primary transition-colors py-2 px-4 rounded-lg flex items-center gap-2 ${location.pathname === '/tours' ? 'bg-secondary/50 text-primary font-medium' : ''}`}
-              >
-                <BookOpen className="w-4 h-4" />
-                {isRTL ? 'جولات افتراضية' : 'Virtual Tours'}
-              </Link>
-              <Link 
-                to="/holograms" 
-                className={`hover:text-primary transition-colors py-2 px-4 rounded-lg flex items-center gap-2 ${location.pathname === '/holograms' ? 'bg-secondary/50 text-primary font-medium' : ''}`}
-              >
-                <Boxes className="w-4 h-4" />
-                {isRTL ? 'تجربة الهولوجرام' : 'Hologram Experience'}
-              </Link>
-              <Link 
-                to="/auction-section" 
-                className={`hover:text-primary transition-colors py-2 px-4 rounded-lg ${location.pathname === '/auction-section' ? 'bg-secondary/50 text-primary font-medium' : ''}`}
-              >
-                {isRTL ? 'المزادات الثقافية' : 'Cultural Auctions'}
-              </Link>
-              <Link 
-                to="/about" 
-                className={`hover:text-primary transition-colors py-2 px-4 rounded-lg ${location.pathname === '/about' ? 'bg-secondary/50 text-primary font-medium' : ''}`}
-              >
-                {isRTL ? 'عن المتحف' : 'About'}
-              </Link>
-            </div>
+        {/* Desktop Nav */}
+        {!isMobile && (
+          <div className="flex flex-1 items-center justify-center space-x-8 rtl:space-x-reverse">
+            {navLinks.map((link) => {
+              const isActive = location.pathname === link.to;
+              return (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className={`text-sm font-bold transition-all relative py-2 ${
+                    isActive ? 'text-[#B8945F]' : 'text-[#3D2E1A]/80 hover:text-[#B8945F]'
+                  }`}
+                >
+                  {isRTL ? link.label.ar : link.label.en}
+                  {isActive && (
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#B8945F] rounded-full" />
+                  )}
+                </Link>
+              );
+            })}
           </div>
         )}
-      </nav>
 
-      {isMegaMenuOpen && !isMobile && (
-        <MegaMenu 
-          isRTL={isRTL} 
-          menuType={activeMegaMenu!} 
-          onClose={closeMegaMenu} 
-        />
+        {/* Actions */}
+        <div className="flex items-center gap-3">
+          <LanguageSwitcher />
+          
+          <Button variant="outline" size="sm" className="hidden md:flex rounded-full border-[#E8C97A] text-[#3D2E1A] hover:bg-[#FBF7EF]" asChild>
+            <Link to="/login">
+              <User className="w-4 h-4 mr-2 rtl:ml-2 rtl:mr-0" />
+              {isRTL ? 'دخول' : 'Login'}
+            </Link>
+          </Button>
+          
+          {isMobile && (
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="rounded-full text-[#3D2E1A]"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </Button>
+          )}
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {isMobile && isMenuOpen && (
+        <div className="absolute top-full left-0 right-0 bg-white/95 backdrop-blur-md border-b border-[#E8E3D9] p-4 shadow-xl animate-in slide-in-from-top-2">
+          <div className="flex flex-col space-y-2">
+            {navLinks.map((link) => {
+              const isActive = location.pathname === link.to;
+              return (
+                <Link 
+                  key={link.to}
+                  to={link.to} 
+                  className={`py-3 px-4 rounded-xl font-bold transition-colors ${
+                    isActive ? 'bg-[#FBF7EF] text-[#B8945F]' : 'text-[#3D2E1A]'
+                  }`}
+                >
+                  {isRTL ? link.label.ar : link.label.en}
+                </Link>
+              );
+            })}
+            <div className="h-px bg-[#E8E3D9] my-2" />
+            <Link 
+              to="/login"
+              className="py-3 px-4 rounded-xl font-bold text-[#3D2E1A] flex items-center gap-2"
+            >
+              <User className="w-4 h-4" />
+              {isRTL ? 'تسجيل الدخول' : 'Login'}
+            </Link>
+          </div>
+        </div>
       )}
-    </>
+    </nav>
   );
 };
 

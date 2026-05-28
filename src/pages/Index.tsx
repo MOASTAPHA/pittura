@@ -1,222 +1,233 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Compass, BookOpen, ArrowRight, ArrowLeft, Play } from 'lucide-react';
+import { MapPin, ArrowRight, ArrowLeft, Play, Crown } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import SkyboxModal from '@/components/SkyboxModal';
 import { useLanguage } from '@/contexts/LanguageContext';
-
-const HERO_IMG =
-  'https://images.unsplash.com/photo-1578895101408-1a36b834405b?auto=format&fit=crop&q=80&w=2000';
+import { curatedLocations } from '@/data/tourLocations';
 
 const Index = () => {
   const { isRTL } = useLanguage();
   const Arrow = isRTL ? ArrowLeft : ArrowRight;
+  
+  const [activeBgIndex, setActiveBgIndex] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState<typeof curatedLocations[0] | null>(null);
 
-  const features = [
-    {
-      icon: MapPin,
-      title: isRTL ? 'خريطة تفاعلية' : 'Interactive Map',
-      desc: isRTL
-        ? 'استكشف المواقع التراثية للمملكة على خريطة حية مع تفاصيل غنية لكل موقع.'
-        : 'Discover Saudi heritage sites on a living map with rich, curated detail for each location.',
-      to: '/explore',
-    },
-    {
-      icon: Compass,
-      title: isRTL ? 'جولات افتراضية 360°' : '360° Virtual Tours',
-      desc: isRTL
-        ? 'تجوّل داخل المتاحف والمواقع التاريخية بتجربة غامرة عالية الدقة.'
-        : 'Step inside museums and historic sites with immersive, high-fidelity 360° experiences.',
-      to: '/virtual-museum',
-    },
-    {
-      icon: BookOpen,
-      title: isRTL ? 'معلومات موثوقة' : 'Reliable Information',
-      desc: isRTL
-        ? 'محتوى ثقافي مُحقق من مصادر متخصصة في التراث السعودي.'
-        : 'Cultural content verified by specialists in Saudi heritage and history.',
-      to: '/heritage-experience',
-    },
-  ];
+  // Background rotation
+  useEffect(() => {
+    if (modalOpen) return;
+    const interval = setInterval(() => {
+      setActiveBgIndex((prev) => (prev + 1) % curatedLocations.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [modalOpen]);
 
-  const sites = [
-    {
-      name: isRTL ? 'مدائن صالح' : 'Hegra',
-      region: isRTL ? 'العُلا' : 'AlUla',
-      img: 'https://images.unsplash.com/photo-1533408648768-c09bb62b670c?auto=format&fit=crop&q=80&w=1200',
-    },
-    {
-      name: isRTL ? 'حي الطُريف' : 'At-Turaif',
-      region: isRTL ? 'الدرعية' : 'Diriyah',
-      img: 'https://images.unsplash.com/photo-1549144674-042496a1c191?auto=format&fit=crop&q=80&w=1200',
-    },
-    {
-      name: isRTL ? 'جدة التاريخية' : 'Historic Jeddah',
-      region: isRTL ? 'البلد' : 'Al-Balad',
-      img: 'https://images.unsplash.com/photo-1603651780584-6c3284e5d819?auto=format&fit=crop&q=80&w=1200',
-    },
-  ];
+  const openSkybox = (location: typeof curatedLocations[0]) => {
+    setSelectedLocation(location);
+    setModalOpen(true);
+  };
+
+  const featuredLocations = curatedLocations.filter(loc => loc.featured).slice(0, 3);
 
   return (
-    <div className="bg-[#F5F0E8]">
+    <div className="bg-[#F5F0E8] min-h-screen" dir={isRTL ? 'rtl' : 'ltr'}>
       <Navigation />
 
-      {/* HERO */}
-      <section className="relative h-[88vh] min-h-[600px] w-full overflow-hidden">
-        <img
-          src={HERO_IMG}
-          alt={isRTL ? 'تراث المملكة العربية السعودية' : 'Saudi Arabian heritage landscape'}
-          className="absolute inset-0 w-full h-full object-cover scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#3D2E1A]/40 via-[#3D2E1A]/50 to-[#3D2E1A]/90" />
-
-        <div className="relative h-full flex flex-col items-center justify-center text-center px-6 max-w-5xl mx-auto">
-          <span className="text-[#E8C97A] text-xs tracking-[0.4em] uppercase mb-6 font-medium">
-            {isRTL ? 'متحف المملكة الرقمي' : 'The Digital Art Museum'}
-          </span>
-          <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight drop-shadow-lg">
-            {isRTL ? 'تراث المملكة، يُروى رقميًا.' : 'Saudi heritage, told digitally.'}
-          </h1>
-          <p className="mt-6 max-w-2xl text-white/85 text-lg leading-relaxed">
-            {isRTL
-              ? 'بيتورا يفتح لك أبواب المواقع التاريخية والمتاحف السعودية عبر تجارب تفاعلية غامرة من أي مكان في العالم.'
-              : 'Pittura opens the doors to Saudi historic sites and museums through immersive, interactive experiences — from anywhere in the world.'}
-          </p>
-
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              to="/explore"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-[#B8945F] to-[#8B6F3F] hover:from-[#C9A570] hover:to-[#9C7F4F] text-white font-bold px-8 py-4 rounded-full shadow-xl shadow-[#B8945F]/30 transition-all hover:scale-[1.02]"
-            >
-              <MapPin className="w-5 h-5" />
-              {isRTL ? 'استكشف الخريطة' : 'Explore the Map'}
-              <Arrow className="w-4 h-4" />
-            </Link>
-            <Link
-              to="/virtual-museum"
-              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold px-8 py-4 rounded-full transition"
-            >
-              <Play className="w-4 h-4 fill-current" />
-              {isRTL ? 'شاهد جولة' : 'Watch a Tour'}
-            </Link>
+      {/* HERO SECTION */}
+      <section className="relative h-screen min-h-[600px] w-full overflow-hidden flex flex-col justify-center -mt-[80px] pt-[80px]">
+        {curatedLocations.map((loc, idx) => (
+          <div
+            key={loc.id}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              idx === activeBgIndex ? 'opacity-100 z-0' : 'opacity-0 -z-10'
+            }`}
+          >
+            <img
+              src={loc.thumbnailUrl}
+              alt={isRTL ? loc.title.ar : loc.title.en}
+              className="w-full h-full object-cover scale-105"
+            />
+            {/* Cinematic Gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent opacity-80" />
+            
+            {/* Location Label (bottom corner) */}
+            <div className={`absolute bottom-8 ${isRTL ? 'left-8 text-left' : 'right-8 text-right'} text-white/60 text-sm tracking-widest uppercase`}>
+              <span className="block mb-1 text-[#E8C97A]">{isRTL ? loc.region.ar : loc.region.en}</span>
+              {isRTL ? loc.title.ar : loc.title.en}
+            </div>
           </div>
-        </div>
-      </section>
+        ))}
 
-      {/* ABOUT */}
-      <section className="py-24 px-6 max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-16 items-start">
-          <div>
-            <span className="text-[#B8945F] text-xs tracking-[0.3em] uppercase font-semibold">
-              {isRTL ? 'عن المشروع' : 'About the Project'}
+        <div className="relative z-10 px-6 max-w-7xl mx-auto w-full">
+          <div className="max-w-3xl">
+            <span className="text-[#E8C97A] text-xs md:text-sm tracking-[0.4em] uppercase mb-4 block font-bold">
+              {isRTL ? 'متحف التراث السعودي الرقمي' : 'The Saudi Digital Heritage Museum'}
             </span>
-            <h2 className="mt-4 text-4xl md:text-5xl font-bold text-[#3D2E1A] leading-tight">
-              {isRTL ? 'نحفظ الذاكرة. نُتيحها للعالم.' : 'Preserving memory. Sharing it with the world.'}
-            </h2>
-            <div className="mt-6 h-1 w-16 bg-gradient-to-r from-[#B8945F] to-[#E8C97A] rounded-full" />
-          </div>
-          <div className="space-y-5 text-[#5C4A2E] text-lg leading-loose">
-            <p>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-tight drop-shadow-2xl mb-6 font-playfair">
+              {isRTL ? 'تراث يُروى.' : 'Heritage, told.'}
+            </h1>
+            <p className="max-w-xl text-white/80 text-lg md:text-xl leading-relaxed mb-10 font-light">
               {isRTL
-                ? 'بيتورا منصة رقمية تُكرّس لتوثيق ورقمنة المواقع التراثية في المملكة العربية السعودية، من مدائن صالح إلى حي الطُريف وجدة التاريخية.'
-                : 'Pittura is a digital platform dedicated to documenting and digitizing Saudi Arabia\'s heritage sites — from Hegra to At-Turaif and Historic Jeddah.'}
+                ? 'استكشف أعظم المواقع التاريخية والطبيعية في المملكة العربية السعودية من خلال تجارب بانورامية 360° غامرة.'
+                : 'Explore the greatest historical and natural sites of Saudi Arabia through immersive 360° panoramic experiences.'}
             </p>
-            <p>
-              {isRTL
-                ? 'مهمتنا أن نجعل التراث في متناول الجميع: للباحث، للزائر، وللأجيال القادمة، عبر خرائط حية وجولات افتراضية ومحتوى موثّق.'
-                : 'Our mission is to make heritage accessible to all — researchers, visitors, and future generations — through living maps, virtual tours, and verified content.'}
-            </p>
-          </div>
-        </div>
-      </section>
 
-      {/* FEATURES */}
-      <section className="py-20 px-6 bg-[#FBF7EF] border-y border-[#E8E3D9]">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-[#B8945F] text-xs tracking-[0.3em] uppercase font-semibold">
-              {isRTL ? 'المميزات الأساسية' : 'Core Features'}
-            </span>
-            <h2 className="mt-4 text-4xl font-bold text-[#3D2E1A]">
-              {isRTL ? 'تجربة متكاملة للتراث' : 'A complete heritage experience'}
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {features.map((f) => (
+            <div className="flex flex-wrap items-center gap-4">
               <Link
-                key={f.title}
-                to={f.to}
-                className="group bg-white rounded-3xl p-8 border border-[#E8E3D9] hover:border-[#B8945F] hover:shadow-xl transition-all"
+                to="/explore"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#B8945F] to-[#E8C97A] text-[#2D2118] font-bold px-8 py-4 rounded-full shadow-2xl shadow-[#B8945F]/30 hover:scale-[1.02] transition-transform"
               >
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#B8945F] to-[#8B6F3F] flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform">
-                  <f.icon className="w-6 h-6" />
-                </div>
-                <h3 className="text-xl font-bold text-[#3D2E1A] mb-3">{f.title}</h3>
-                <p className="text-[#5C4A2E] leading-relaxed text-sm">{f.desc}</p>
-                <div className="mt-6 inline-flex items-center gap-1 text-[#B8945F] text-sm font-semibold">
-                  {isRTL ? 'اكتشف' : 'Discover'}
-                  <Arrow className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </div>
+                <MapPin className="w-5 h-5" />
+                {isRTL ? 'استكشف الخريطة' : 'Explore Map'}
+                <Arrow className="w-4 h-4" />
               </Link>
-            ))}
+              <button
+                onClick={() => openSkybox(curatedLocations[activeBgIndex])}
+                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white font-semibold px-8 py-4 rounded-full transition-all"
+              >
+                <Play className="w-4 h-4 fill-current" />
+                {isRTL ? 'شاهد الموقع الحالي' : 'View Current Site'}
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* FEATURED SITES */}
-      <section className="py-24 px-6 max-w-6xl mx-auto">
-        <div className="flex items-end justify-between mb-12 flex-wrap gap-4">
+      {/* INTRO TEXT SECTION */}
+      <section className="py-24 px-6 bg-[#FBF7EF] border-y border-[#E8E3D9]">
+        <div className="max-w-4xl mx-auto text-center">
+          <span className="text-[#B8945F] text-xs tracking-[0.3em] uppercase font-bold mb-4 block">
+            {isRTL ? 'مهمتنا' : 'Our Mission'}
+          </span>
+          <h2 className="text-3xl md:text-5xl font-bold text-[#3D2E1A] leading-tight mb-8 font-playfair">
+            {isRTL
+              ? 'نحفظ الذاكرة. ونجعل التراث في متناول العالم.'
+              : 'Preserving memory. Making heritage accessible to the world.'}
+          </h2>
+          <p className="text-[#5C4A2E] text-lg leading-relaxed max-w-2xl mx-auto">
+            {isRTL
+              ? 'بيتورا منصة رقمية متميزة تقدم تجارب افتراضية للمواقع التراثية السعودية التي لا تُنسى. ندمج التكنولوجيا مع الثقافة لتقديم رحلة بصرية غنية لا مثيل لها.'
+              : 'Pittura is a premium digital platform offering virtual experiences of unforgettable Saudi heritage sites. We merge technology with culture to deliver an unparalleled rich visual journey.'}
+          </p>
+        </div>
+      </section>
+
+      {/* FEATURED SITES (Curated) */}
+      <section className="py-24 px-6 max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div>
-            <span className="text-[#B8945F] text-xs tracking-[0.3em] uppercase font-semibold">
-              {isRTL ? 'مواقع مميزة' : 'Featured Sites'}
+            <span className="text-[#B8945F] text-xs tracking-[0.3em] uppercase font-bold block mb-3">
+              {isRTL ? 'تجارب مختارة' : 'Curated Experiences'}
             </span>
-            <h2 className="mt-3 text-4xl font-bold text-[#3D2E1A]">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#3D2E1A] font-playfair">
               {isRTL ? 'وجهات لا تُفوّت' : 'Destinations not to miss'}
             </h2>
           </div>
-          <Link to="/explore" className="inline-flex items-center gap-2 text-[#3D2E1A] font-semibold hover:text-[#B8945F] transition">
-            {isRTL ? 'كل المواقع' : 'View all'}
+          <Link
+            to="/explore"
+            className="inline-flex items-center gap-2 text-[#3D2E1A] font-bold hover:text-[#B8945F] transition-colors border-b-2 border-transparent hover:border-[#B8945F] pb-1"
+          >
+            {isRTL ? 'جميع الوجهات (10)' : 'All Destinations (10)'}
             <Arrow className="w-4 h-4" />
           </Link>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {sites.map((s) => (
-            <Link to="/explore" key={s.name} className="group relative h-80 rounded-3xl overflow-hidden">
-              <img src={s.img} alt={s.name} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#3D2E1A]/95 via-[#3D2E1A]/30 to-transparent" />
-              <div className={`absolute bottom-6 ${isRTL ? 'right-6' : 'left-6'} text-white`}>
-                <span className="text-xs text-[#E8C97A] tracking-wider uppercase">{s.region}</span>
-                <h3 className="text-2xl font-bold mt-1">{s.name}</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {featuredLocations.map((site) => (
+            <div
+              key={site.id}
+              className="group relative h-[400px] rounded-3xl overflow-hidden cursor-pointer shadow-lg"
+              onClick={() => openSkybox(site)}
+            >
+              <img
+                src={site.thumbnailUrl}
+                alt={isRTL ? site.title.ar : site.title.en}
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#2D2118] via-[#2D2118]/40 to-transparent opacity-90 group-hover:opacity-80 transition-opacity" />
+              
+              <div className="absolute top-6 left-6 right-6 flex justify-between items-start">
+                <span className="bg-black/50 backdrop-blur-md text-white text-xs font-bold px-3 py-1.5 rounded-full border border-white/20">
+                  360°
+                </span>
+                <span className="bg-[#B8945F]/90 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
+                  {isRTL ? site.region.ar : site.region.en}
+                </span>
               </div>
-            </Link>
+
+              <div className="absolute bottom-6 left-6 right-6 text-white transform group-hover:-translate-y-2 transition-transform">
+                <h3 className="text-2xl font-bold mb-2 font-playfair">{isRTL ? site.title.ar : site.title.en}</h3>
+                <p className="text-white/70 text-sm line-clamp-2 mb-4 hidden group-hover:block transition-all">
+                  {isRTL ? site.description.ar : site.description.en}
+                </p>
+                <div className="inline-flex items-center gap-2 text-[#E8C97A] font-semibold text-sm">
+                  <Play className="w-4 h-4 fill-current" />
+                  {isRTL ? 'بدء التجربة' : 'Start Experience'}
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="relative py-24 px-6 bg-[#3D2E1A] overflow-hidden">
-        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_30%_50%,#E8C97A_0%,transparent_60%)]" />
-        <div className="relative max-w-3xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white">
-            {isRTL ? 'ابدأ رحلتك في التراث' : 'Begin your heritage journey'}
-          </h2>
-          <p className="mt-5 text-white/75 text-lg">
-            {isRTL
-              ? 'انطلق الآن واكتشف كنوز المملكة من خلال خريطتنا التفاعلية.'
-              : 'Step in now and discover the Kingdom\'s treasures through our interactive map.'}
-          </p>
-          <Link
-            to="/explore"
-            className="mt-10 inline-flex items-center gap-2 bg-gradient-to-r from-[#B8945F] to-[#E8C97A] text-[#3D2E1A] font-bold px-10 py-4 rounded-full shadow-2xl shadow-[#B8945F]/40 hover:scale-[1.03] transition"
-          >
-            <MapPin className="w-5 h-5" />
-            {isRTL ? 'استكشف الخريطة' : 'Explore the Map'}
-          </Link>
+      {/* MEMBERSHIP CTA */}
+      <section className="py-20 px-6">
+        <div className="max-w-5xl mx-auto bg-gradient-to-br from-[#3D2E1A] to-[#2D2118] rounded-[3rem] p-10 md:p-16 relative overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-[#B8945F] rounded-full blur-[100px] opacity-30" />
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#E8C97A] rounded-full blur-[100px] opacity-20" />
+          
+          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
+            <div className="md:w-2/3">
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full text-[#E8C97A] text-sm font-bold mb-6">
+                <Crown className="w-4 h-4" />
+                {isRTL ? 'عضوية بيتورا' : 'Pittura Membership'}
+              </div>
+              <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 font-playfair leading-tight">
+                {isRTL ? 'افتح المزيد من التجارب المذهلة' : 'Unlock More Breathtaking Experiences'}
+              </h2>
+              <p className="text-white/70 text-lg mb-8 max-w-xl">
+                {isRTL 
+                  ? 'انضم إلينا للحصول على وصول غير محدود إلى جميع تجارب 360° بجودة عالية، مع إضافة مواقع جديدة شهرياً.' 
+                  : 'Join us for unlimited access to all HD 360° experiences, with new curated locations added monthly.'}
+              </p>
+              <Link
+                to="/membership"
+                className="inline-flex items-center gap-2 bg-[#E8C97A] hover:bg-white text-[#2D2118] font-bold px-8 py-4 rounded-full shadow-lg transition-colors"
+              >
+                {isRTL ? 'اكتشف الخطط' : 'View Plans'}
+                <Arrow className="w-4 h-4" />
+              </Link>
+            </div>
+            
+            <div className="md:w-1/3 flex justify-center">
+              <div className="w-40 h-40 md:w-56 md:h-56 relative animate-float">
+                <div className="absolute inset-0 border-2 border-[#E8C97A]/30 rounded-full animate-[spin_10s_linear_infinite]" />
+                <div className="absolute inset-4 border border-[#B8945F]/50 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-24 h-24 bg-gradient-to-br from-[#B8945F] to-[#E8C97A] rounded-full flex items-center justify-center shadow-2xl shadow-[#B8945F]/50">
+                    <span className="text-[#2D2118] font-playfair font-bold text-3xl">P</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       <Footer />
+
+      {/* Skybox Modal for quick viewing from home page */}
+      {selectedLocation && (
+        <SkyboxModal
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+          skyboxUrl={selectedLocation.skyboxUrl}
+          locationTitle={isRTL ? selectedLocation.title.ar : selectedLocation.title.en}
+        />
+      )}
     </div>
   );
 };

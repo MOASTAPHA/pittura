@@ -1,18 +1,11 @@
-
-import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import Navigation from '@/components/Navigation';
+import { Navigation } from 'lucide-react'; // this was imported incorrectly in the old one, but wait, Navigation is a component.
+import { default as NavigationComponent } from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const About = () => {
-  const [isRTL, setIsRTL] = useState(false);
-  const location = useLocation();
-
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    setIsRTL(params.get('lang') === 'ar');
-  }, [location]);
+  const { isRTL } = useLanguage();
 
   const teamMembers = [
     {
@@ -38,111 +31,126 @@ const About = () => {
   ];
 
   return (
-    <div className={isRTL ? 'rtl' : ''}>
-      <Navigation isRTL={isRTL} />
+    <div className="bg-[#F5F0E8] min-h-screen" dir={isRTL ? 'rtl' : 'ltr'}>
+      <NavigationComponent />
       
-      <div className="relative bg-gradient-to-r from-museum-blue/30 via-museum-sand/40 to-museum-olive/30 h-64 flex items-center justify-center">
+      <div className="relative bg-[#3D2E1A] h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img 
             src="https://images.unsplash.com/photo-1594850189283-898cd8b4add7?q=80&w=2071&auto=format&fit=crop" 
             alt="Museum hall" 
-            className="w-full h-full object-cover opacity-30"
+            className="w-full h-full object-cover opacity-20"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#F5F0E8] to-transparent" />
         </div>
-        <div className="relative z-10 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-2">
+        <div className="relative z-10 text-center max-w-4xl mx-auto px-6">
+          <span className="text-[#E8C97A] text-xs tracking-[0.4em] uppercase font-bold mb-4 block">
+            {isRTL ? 'قصتنا' : 'Our Story'}
+          </span>
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 font-playfair">
             {isRTL ? 'عن المتحف' : 'About the Museum'}
           </h1>
-          <p className="text-lg text-muted-foreground">
-            {isRTL ? 'تجربة فنية رقمية لا مثيل لها' : 'A unique digital art experience'}
+          <p className="text-xl text-white/80 font-light">
+            {isRTL ? 'حفظ الذاكرة الوطنية في عالم رقمي' : 'Preserving national memory in a digital world'}
           </p>
         </div>
       </div>
 
-      <div className="museum-container py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
+      <div className="max-w-6xl mx-auto px-6 py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-24">
           <motion.div 
             className="order-2 md:order-1"
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="section-title">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#3D2E1A] mb-6 font-playfair">
               {isRTL ? 'رؤيتنا ومهمتنا' : 'Our Vision & Mission'}
             </h2>
-            <p className="mb-4 text-lg">
-              {isRTL 
-                ? 'بيتورا هو متحف رقمي مكرس للحفاظ على التراث الثقافي للمملكة العربية السعودية من خلال التكنولوجيا المبتكرة. نحن نجمع بين التقاليد والابتكار لجعل كنوزنا الثقافية متاحة للجميع.'
-                : 'Pittura is a digital museum dedicated to preserving Saudi Arabia\'s cultural heritage through innovative technology. We merge tradition and innovation to make our cultural treasures accessible to everyone.'}
-            </p>
-            <p>
-              {isRTL 
-                ? 'من خلال تجارب الواقع الافتراضي، والعروض التوضيحية ثلاثية الأبعاد، والهولوجرام التفاعلي، نحن نخلق طرقًا جديدة للتفاعل مع تاريخنا. هدفنا هو إلهام الأجيال القادمة وتعزيز التقدير العالمي للتراث السعودي الغني.'
-                : 'Through virtual reality experiences, 3D demonstrations, and interactive holograms, we create new ways to engage with our history. Our goal is to inspire future generations and foster global appreciation for Saudi Arabia\'s rich heritage.'}
-            </p>
+            <div className="w-16 h-1 bg-[#B8945F] mb-8 rounded-full" />
+            <div className="space-y-6 text-[#5C4A2E] text-lg leading-relaxed">
+              <p>
+                {isRTL 
+                  ? 'بيتورا هو متحف رقمي رائد مكرس للحفاظ على التراث الثقافي للمملكة العربية السعودية من خلال التكنولوجيا المبتكرة. نحن نجمع بين التقاليد والابتكار لجعل كنوزنا الثقافية متاحة للعالم أجمع.'
+                  : 'Pittura is a pioneering digital museum dedicated to preserving Saudi Arabia\'s cultural heritage through innovative technology. We merge tradition and innovation to make our cultural treasures accessible to the entire world.'}
+              </p>
+              <p>
+                {isRTL 
+                  ? 'من خلال الجولات الافتراضية بزاوية 360 درجة، والتجارب الغامرة، والمحتوى الموثق بعناية، نحن نخلق طرقًا جديدة للتفاعل مع تاريخنا. هدفنا هو إلهام الأجيال القادمة وتعزيز التقدير العالمي للتراث السعودي الغني.'
+                  : 'Through 360-degree virtual tours, immersive experiences, and carefully curated content, we create new ways to engage with our history. Our goal is to inspire future generations and foster global appreciation for Saudi Arabia\'s rich heritage.'}
+              </p>
+            </div>
           </motion.div>
           
           <motion.div 
             className="order-1 md:order-2"
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <div className="rounded-xl overflow-hidden shadow-xl">
+            <div className="rounded-3xl overflow-hidden shadow-2xl relative">
               <img 
-                src="https://images.unsplash.com/photo-1603739903239-8b6e64c3b185?q=80&w=2071&auto=format&fit=crop" 
+                src="https://images.unsplash.com/photo-1549144674-042496a1c191?q=80&w=2070&auto=format&fit=crop" 
                 alt="Museum vision" 
-                className="w-full h-72 object-cover"
+                className="w-full h-[500px] object-cover"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#3D2E1A]/60 to-transparent" />
             </div>
           </motion.div>
         </div>
 
         <motion.div 
-          className="mb-16 text-center max-w-3xl mx-auto"
+          className="mb-24 text-center max-w-3xl mx-auto bg-white p-12 rounded-[3rem] shadow-xl border border-[#E8E3D9]"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl font-bold mb-6 inline-block">
-            {isRTL ? 'فكرة المتحف' : 'The Museum Concept'}
+          <h2 className="text-3xl md:text-4xl font-bold text-[#3D2E1A] mb-6 font-playfair">
+            {isRTL ? 'فكرة المتحف' : 'The Concept'}
           </h2>
-          <p className="text-lg mb-8">
+          <p className="text-[#5C4A2E] text-lg leading-relaxed">
             {isRTL 
-              ? 'تأسس بيتورا في عام 2023 كجزء من مبادرة رؤية 2030 للمملكة العربية السعودية. يهدف المتحف إلى أن يكون جسرًا بين الماضي والمستقبل، واستخدام التكنولوجيا المتطورة لإحياء التراث السعودي.'
-              : 'Pittura was established in 2023 as part of Saudi Arabia\'s Vision 2030 initiative. The museum aims to be a bridge between the past and the future, using advanced technology to bring Saudi heritage to life.'}
+              ? 'تأسس بيتورا ليكون جسراً يربط عبق الماضي بتقنيات المستقبل. باستخدام أحدث تقنيات التصوير البانورامي، قمنا بتوثيق أعظم المعالم في المملكة لتقديم تجربة سياحية وثقافية غير مسبوقة.'
+              : 'Pittura was established to be a bridge connecting the fragrance of the past with the technologies of the future. Using the latest panoramic imaging techniques, we have documented the Kingdom\'s greatest landmarks to provide an unprecedented tourism and cultural experience.'}
           </p>
         </motion.div>
         
-        <div className="mb-16">
-          <h2 className="section-title text-center mb-10">
-            {isRTL ? 'فريقنا' : 'Our Team'}
-          </h2>
+        <div>
+          <div className="text-center mb-16">
+            <span className="text-[#B8945F] text-xs tracking-[0.3em] uppercase font-bold mb-4 block">
+              {isRTL ? 'الخبراء' : 'The Experts'}
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#3D2E1A] font-playfair">
+              {isRTL ? 'فريق العمل' : 'Our Team'}
+            </h2>
+          </div>
+          
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {teamMembers.map((member, index) => (
               <motion.div 
                 key={index}
-                className="bg-white dark:bg-card shadow-md rounded-xl overflow-hidden"
+                className="bg-white shadow-lg rounded-3xl overflow-hidden border border-[#E8E3D9] group"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <div className="h-60 overflow-hidden">
+                <div className="h-64 overflow-hidden relative">
                   <img 
                     src={member.image} 
                     alt={isRTL ? member.name.ar : member.name.en} 
-                    className="w-full h-full object-cover transition-all duration-500 hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
                   />
+                  <div className="absolute inset-0 bg-[#3D2E1A]/20 group-hover:bg-transparent transition-colors" />
                 </div>
-                <div className="p-4 text-center">
-                  <h3 className="font-bold text-lg">
+                <div className="p-6 text-center">
+                  <h3 className="font-bold text-[#3D2E1A] text-xl mb-1">
                     {isRTL ? member.name.ar : member.name.en}
                   </h3>
-                  <p className="text-muted-foreground">
+                  <p className="text-[#B8945F] font-medium text-sm">
                     {isRTL ? member.role.ar : member.role.en}
                   </p>
                 </div>
@@ -150,43 +158,9 @@ const About = () => {
             ))}
           </div>
         </div>
-
-        <div className="bg-museum-sand/30 rounded-2xl p-8 md:p-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <h2 className="section-title">
-                {isRTL ? 'تواصل معنا' : 'Contact Us'}
-              </h2>
-              <div className="space-y-4">
-                <p>
-                  <strong>{isRTL ? 'العنوان:' : 'Address:'}</strong> {isRTL ? 'طريق الملك عبدالله، حي السليمانية، الرياض، المملكة العربية السعودية' : 'King Abdullah Road, Sulaymaniyah District, Riyadh, Saudi Arabia'}
-                </p>
-                <p>
-                  <strong>{isRTL ? 'البريد الإلكتروني:' : 'Email:'}</strong> info@pittura-museum.sa
-                </p>
-                <p>
-                  <strong>{isRTL ? 'الهاتف:' : 'Phone:'}</strong> +966 11 234 5678
-                </p>
-                <p>
-                  <strong>{isRTL ? 'ساعات العمل:' : 'Opening Hours:'}</strong> {isRTL ? 'من الأحد إلى الخميس: 9 صباحًا - 9 مساءً، الجمعة: 2 ظهرًا - 9 مساءً' : 'Sunday-Thursday: 9AM - 9PM, Friday: 2PM - 9PM'}
-                </p>
-              </div>
-            </div>
-            <div className="h-64 rounded-xl overflow-hidden">
-              <div className="w-full h-full bg-gray-200">
-                {/* Here would normally be a map component */}
-                <div className="flex items-center justify-center h-full bg-museum-olive/20">
-                  <p className="text-center">
-                    {isRTL ? 'خريطة الموقع' : 'Interactive Map Coming Soon'}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
       
-      <Footer isRTL={isRTL} />
+      <Footer />
     </div>
   );
 };
