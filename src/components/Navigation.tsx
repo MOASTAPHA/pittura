@@ -11,6 +11,7 @@ const Navigation = ({ isRTL: isRTLProp }: { isRTL?: boolean } = {}) => {
   const isRTL = isRTLProp ?? ctxRTL;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [logoError, setLogoError] = useState(false);
   const isMobile = useIsMobile();
   const location = useLocation();
 
@@ -27,20 +28,30 @@ const Navigation = ({ isRTL: isRTLProp }: { isRTL?: boolean } = {}) => {
   const navLinks = [
     { to: '/', label: { en: 'Home', ar: 'الرئيسية' } },
     { to: '/explore', label: { en: 'Explore', ar: 'استكشف' } },
+    { to: '/auctions', label: { en: 'Auctions', ar: 'المزادات' } },
     { to: '/about', label: { en: 'About', ar: 'عن المتحف' } },
     { to: '/contact', label: { en: 'Contact', ar: 'اتصل بنا' } },
     { to: '/membership', label: { en: 'Membership', ar: 'العضويات' } },
   ];
 
   return (
-    <nav className={`py-4 px-6 ${isScrolled ? 'bg-white/95 shadow-md' : 'bg-transparent'} backdrop-blur-md fixed top-0 w-full z-50 transition-all duration-300 ${isRTL ? 'rtl' : ''}`}>
+    <nav className={`py-4 px-6 ${isScrolled ? 'bg-white/95 shadow-md' : 'bg-white/80 shadow-sm'} backdrop-blur-md fixed top-0 w-full z-50 transition-all duration-300 ${isRTL ? 'rtl' : ''}`}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         
         {/* Logo */}
         <Link to="/" className="relative flex items-center gap-2 group">
-          <div className="w-10 h-10 bg-gradient-to-br from-[#B8945F] to-[#E8C97A] rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
-            <Gem className="text-white w-5 h-5" />
-          </div>
+          { !logoError ? (
+            <img
+              src="/images/logo.png"
+              alt="Pittura logo"
+              className="w-10 h-10 rounded-xl object-cover shadow-lg group-hover:scale-105 transition-transform"
+              onError={() => setLogoError(true)}
+            />
+          ) : (
+            <div className="w-10 h-10 bg-gradient-to-br from-[#B8945F] to-[#E8C97A] rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+              <Gem className="text-white w-5 h-5" />
+            </div>
+          )}
           <div className="flex flex-col">
             <span className="text-xl font-bold text-[#3D2E1A] font-playfair leading-none">
               {isRTL ? 'بيتورا' : 'Pittura'}
@@ -61,8 +72,8 @@ const Navigation = ({ isRTL: isRTLProp }: { isRTL?: boolean } = {}) => {
                   key={link.to}
                   to={link.to}
                   className={`text-sm font-bold transition-all relative py-2 ${
-                    isActive ? 'text-[#B8945F]' : 'text-[#3D2E1A]/80 hover:text-[#B8945F]'
-                  }`}
+                      isActive ? 'text-[#B8945F]' : 'text-[#3D2E1A] hover:text-[#B8945F]'
+                    }`}
                 >
                   {isRTL ? link.label.ar : link.label.en}
                   {isActive && (

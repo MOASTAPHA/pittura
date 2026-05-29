@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Gem, MapPin, Mail, Phone, Instagram, Twitter, Youtube } from 'lucide-react';
 
 const Footer = () => {
   const { isRTL } = useLanguage();
   const currentYear = new Date().getFullYear();
+  const [logoError, setLogoError] = useState(false);
   
   return (
     <footer className="bg-[#2D2118] text-white pt-20 pb-10" dir={isRTL ? 'rtl' : 'ltr'}>
@@ -14,9 +16,18 @@ const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-6 inline-flex">
-              <div className="w-10 h-10 bg-gradient-to-br from-[#B8945F] to-[#E8C97A] rounded-xl flex items-center justify-center shadow-lg">
-                <Gem className="text-[#2D2118] w-5 h-5" />
-              </div>
+              {!logoError ? (
+                <img
+                  src="/images/logo.png"
+                  alt="Pittura logo"
+                  className="w-10 h-10 rounded-xl object-cover shadow-lg"
+                  onError={() => setLogoError(true)}
+                />
+              ) : (
+                <div className="w-10 h-10 bg-gradient-to-br from-[#B8945F] to-[#E8C97A] rounded-xl flex items-center justify-center shadow-lg">
+                  <Gem className="text-[#2D2118] w-5 h-5" />
+                </div>
+              )}
               <div className="flex flex-col">
                 <span className="text-2xl font-bold text-white font-playfair leading-none">
                   {isRTL ? 'بيتورا' : 'Pittura'}
@@ -92,11 +103,11 @@ const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-start gap-3 text-sm text-white/70">
                 <MapPin className="w-5 h-5 text-[#B8945F] shrink-0 mt-0.5" />
-                <span>{isRTL ? 'حي الدرعية التاريخي، الرياض، المملكة العربية السعودية' : 'Diriyah Heritage District, Riyadh, Saudi Arabia'}</span>
+               
               </li>
               <li className="flex items-center gap-3 text-sm text-white/70">
                 <Phone className="w-5 h-5 text-[#B8945F] shrink-0" />
-                <span dir="ltr">+966 11 234 5678</span>
+                
               </li>
               <li className="flex items-center gap-3 text-sm text-white/70">
                 <Mail className="w-5 h-5 text-[#B8945F] shrink-0" />

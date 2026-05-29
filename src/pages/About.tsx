@@ -7,28 +7,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 const About = () => {
   const { isRTL } = useLanguage();
 
-  const teamMembers = [
-    {
-      name: { en: 'Sarah Al-Zahrani', ar: 'سارة الزهراني' },
-      role: { en: 'Museum Director', ar: 'مديرة المتحف' },
-      image: '/images/team-sarah.jpg'
-    },
-    {
-      name: { en: 'Ahmed Al-Nasser', ar: 'أحمد الناصر' },
-      role: { en: 'Head Curator', ar: 'أمين المعرض الرئيسي' },
-      image: '/images/team-ahmed.jpg'
-    },
-    {
-      name: { en: 'Layla Mahmoud', ar: 'ليلى محمود' },
-      role: { en: 'Digital Experience Designer', ar: 'مصممة التجربة الرقمية' },
-      image: '/images/team-layla.jpg'
-    },
-    {
-      name: { en: 'Khalid Al-Farsi', ar: 'خالد الفارسي' },
-      role: { en: 'Technology Director', ar: 'مدير التكنولوجيا' },
-      image: '/images/team-khalid.jpg'
-    }
-  ];
+  
 
   return (
     <div className="bg-[#F5F0E8] min-h-screen" dir={isRTL ? 'rtl' : 'ltr'}>
@@ -118,46 +97,7 @@ const About = () => {
           </p>
         </motion.div>
         
-        <div>
-          <div className="text-center mb-16">
-            <span className="text-[#B8945F] text-xs tracking-[0.3em] uppercase font-bold mb-4 block">
-              {isRTL ? 'الخبراء' : 'The Experts'}
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#3D2E1A] font-playfair">
-              {isRTL ? 'فريق العمل' : 'Our Team'}
-            </h2>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {teamMembers.map((member, index) => (
-              <motion.div 
-                key={index}
-                className="bg-white shadow-lg rounded-3xl overflow-hidden border border-[#E8E3D9] group"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <div className="h-64 overflow-hidden relative">
-                  <img 
-                    src={member.image} 
-                    alt={isRTL ? member.name.ar : member.name.en} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
-                  />
-                  <div className="absolute inset-0 bg-[#3D2E1A]/20 group-hover:bg-transparent transition-colors" />
-                </div>
-                <div className="p-6 text-center">
-                  <h3 className="font-bold text-[#3D2E1A] text-xl mb-1">
-                    {isRTL ? member.name.ar : member.name.en}
-                  </h3>
-                  <p className="text-[#B8945F] font-medium text-sm">
-                    {isRTL ? member.role.ar : member.role.en}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+        {/* Team section removed as requested */}
       </div>
       
       <Footer />

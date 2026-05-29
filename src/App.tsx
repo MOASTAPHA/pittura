@@ -8,6 +8,9 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import Explore from "./pages/Explore";
 import About from "./pages/About";
+import Auctions from "./pages/Auctions";
+import AuctionDetails from "./pages/AuctionDetails";
+import Checkout from "./pages/Checkout";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -39,7 +42,9 @@ const App = () => (
             <Route path="/museums" element={<Navigate to="/explore" replace />} />
             <Route path="/artifacts" element={<Navigate to="/explore" replace />} />
             <Route path="/tours" element={<Navigate to="/explore" replace />} />
-            <Route path="/auctions" element={<Navigate to="/" replace />} />
+            <Route path="/auctions" element={<Auctions />} />
+            <Route path="/auctions/:id" element={<AuctionDetails />} />
+            <Route path="/checkout" element={<Checkout />} />
             <Route path="/virtual-museum" element={<Navigate to="/explore" replace />} />
             
             {/* 404 */}

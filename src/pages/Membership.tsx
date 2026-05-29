@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Check, Crown, Star, Sparkles } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -123,26 +124,38 @@ const Membership = () => {
                 </ul>
 
                 {/* CTA */}
-                <button
-                  onClick={() => handleSubscribe(tier.id)}
-                  disabled={isProcessing}
-                  className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 ${
-                    isHighlighted
-                      ? 'bg-gradient-to-r from-[#B8945F] to-[#E8C97A] text-[#3D2E1A] hover:shadow-lg hover:shadow-[#B8945F]/30 hover:scale-[1.02]'
-                      : 'bg-[#3D2E1A] text-white hover:bg-[#5C4A2E] hover:shadow-lg'
-                  } ${isSelected && isProcessing ? 'opacity-70 cursor-wait' : ''}`}
-                >
-                  {isSelected && isProcessing ? (
-                    <span className="flex items-center justify-center gap-2">
-                      <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                      {isRTL ? 'جارٍ المعالجة...' : 'Processing...'}
-                    </span>
-                  ) : tier.price === 0 ? (
-                    isRTL ? 'ابدأ مجاناً' : 'Get Started Free'
-                  ) : (
-                    isRTL ? 'اشترك الآن' : 'Subscribe Now'
-                  )}
-                </button>
+                {tier.price === 0 ? (
+                  <button
+                    onClick={() => handleSubscribe(tier.id)}
+                    disabled={isProcessing}
+                    className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 ${
+                      isHighlighted
+                        ? 'bg-gradient-to-r from-[#B8945F] to-[#E8C97A] text-[#3D2E1A] hover:shadow-lg hover:shadow-[#B8945F]/30 hover:scale-[1.02]'
+                        : 'bg-[#3D2E1A] text-white hover:bg-[#5C4A2E] hover:shadow-lg'
+                    } ${isSelected && isProcessing ? 'opacity-70 cursor-wait' : ''}`}
+                  >
+                    {isSelected && isProcessing ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                        {isRTL ? 'جارٍ المعالجة...' : 'Processing...'}
+                      </span>
+                    ) : (
+                      isRTL ? 'ابدأ مجاناً' : 'Get Started Free'
+                    )}
+                  </button>
+                ) : (
+                  <Link to={`/checkout?item=${tier.id}&amount=${tier.price}&currency=SAR`} className="block w-full">
+                    <button
+                      className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 ${
+                        isHighlighted
+                          ? 'bg-gradient-to-r from-[#B8945F] to-[#E8C97A] text-[#3D2E1A] hover:shadow-lg hover:shadow-[#B8945F]/30 hover:scale-[1.02]'
+                          : 'bg-[#3D2E1A] text-white hover:bg-[#5C4A2E] hover:shadow-lg'
+                      }`}
+                    >
+                      {isRTL ? 'اشترك الآن' : 'Subscribe Now'}
+                    </button>
+                  </Link>
+                )}
               </div>
             );
           })}
