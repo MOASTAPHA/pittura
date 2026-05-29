@@ -155,7 +155,7 @@ export const curatedLocations: CuratedLocation[] = [
       ar: 'أعجوبة طبيعية مخفية في منطقة جازان، وادي لجب هو وادٍ دراماتيكي بمنحدرات شاهقة وجداول متدفقة ونباتات خضراء كثيفة. يقدم هذا الوادي الخلاب تناقضاً صارخاً مع المشهد الصحراوي النموذجي، كاشفاً عن التنوع الجغرافي المذهل للمملكة العربية السعودية.',
     },
     skyboxUrl: 'https://skybox.blockadelabs.com/e/090b33baec16087913097d368a40adcc',
-    thumbnailUrl: '/images/wadi-lajab.png',
+    thumbnailUrl: '/images/wadi-lajab.svg',
     region: { en: 'Jizan', ar: 'جازان' },
     type: 'natural',
     coords: [17.3343, 43.0333],

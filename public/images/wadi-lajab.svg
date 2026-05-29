@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" fill="none">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#A7D8F5"/>
+      <stop offset="55%" stop-color="#F4C79B"/>
+      <stop offset="100%" stop-color="#6A4A33"/>
+    </linearGradient>
+    <linearGradient id="cliffLeft" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4A2F22"/>
+      <stop offset="45%" stop-color="#7E4A31"/>
+      <stop offset="100%" stop-color="#B46B44"/>
+    </linearGradient>
+    <linearGradient id="cliffRight" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#39241C"/>
+      <stop offset="55%" stop-color="#6D4230"/>
+      <stop offset="100%" stop-color="#9E5B3D"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#144B56"/>
+      <stop offset="50%" stop-color="#1F7E83"/>
+      <stop offset="100%" stop-color="#7BC7B5"/>
+    </linearGradient>
+    <filter id="softNoise" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="matrix" values="1 0 0 0 0.04 0 1 0 0 0.02 0 0 1 0 0 0 0 0.14 0"/>
+    </filter>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#271711" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="720" fill="url(#sky)"/>
+  <rect width="1280" height="720" filter="url(#softNoise)" opacity="0.38"/>
+
+  <path d="M0 395C150 340 240 320 365 335C449 346 528 385 612 388C704 391 774 333 866 317C972 297 1082 325 1280 270V720H0V395Z" fill="#F2D1A6" opacity="0.52"/>
+  <path d="M0 430C122 390 210 366 315 376C404 385 474 434 572 439C658 443 721 404 808 381C914 353 1054 365 1280 320V720H0V430Z" fill="#D38A57" opacity="0.35"/>
+
+  <path d="M0 720V408C52 392 111 380 165 380C205 380 255 390 298 404C332 416 364 440 389 470C415 500 442 532 487 553C548 582 616 575 682 547C744 520 790 474 839 436C899 389 964 355 1030 347C1098 339 1167 351 1280 380V720H0Z" fill="url(#cliffLeft)"/>
+  <path d="M1280 720V372C1226 356 1170 349 1112 350C1047 351 995 365 944 390C894 414 850 447 813 487C779 523 739 559 689 579C621 607 553 605 495 584C443 565 407 536 378 503C349 470 321 442 282 426C236 406 184 404 0 446V720H1280Z" fill="url(#cliffRight)"/>
+
+  <path d="M262 477C318 448 374 440 432 454C489 468 543 499 594 520C642 540 705 548 756 533C802 520 844 489 887 465C932 439 980 427 1030 426C1088 425 1151 437 1238 462L1280 476V720H0V513C62 504 121 495 181 489C208 486 238 482 262 477Z" fill="url(#water)"/>
+
+  <path d="M220 506C314 472 407 468 495 492C545 505 587 525 634 538C681 551 734 553 785 541C831 530 870 511 910 494C958 473 1014 462 1086 464" stroke="#D7FFF6" stroke-width="6" stroke-linecap="round" opacity="0.45"/>
+  <path d="M185 530C277 502 364 501 444 522C495 536 544 559 603 567C652 574 700 566 751 549C803 531 851 504 901 486" stroke="#A4F0E4" stroke-width="4" stroke-linecap="round" opacity="0.5"/>
+
+  <g filter="url(#shadow)">
+    <path d="M336 404C329 378 343 358 367 351C405 340 432 338 461 342C486 346 507 361 520 383C532 402 539 430 535 455C530 480 518 509 490 529C460 550 430 550 398 540C372 532 348 517 331 492C312 464 309 432 336 404Z" fill="#8C5135"/>
+    <path d="M344 403C350 386 360 375 375 368C401 355 421 353 446 357C467 361 483 373 491 390C500 409 503 430 500 450C497 474 487 494 471 508C451 526 430 531 409 525C388 519 371 506 360 487C347 464 338 433 344 403Z" fill="#B76A43"/>
+    <path d="M392 416C409 406 425 406 439 415C451 423 458 436 457 449C455 465 444 480 427 487C410 494 392 492 379 482C366 472 360 456 363 440C366 427 377 422 392 416Z" fill="#5E3928" opacity="0.45"/>
+  </g>
+
+  <path d="M548 440C542 415 551 395 567 384C596 364 625 361 655 366C681 371 697 388 706 409C714 428 717 455 713 477C708 500 697 523 678 538C655 556 629 561 604 554C581 548 563 535 552 516C539 495 534 472 548 440Z" fill="#6D402E"/>
+  <path d="M558 438C561 422 569 411 582 404C602 392 622 390 641 393C657 396 669 406 676 418C683 432 686 448 684 463C681 480 674 495 662 505C646 519 628 523 610 518C593 513 580 503 573 490C565 475 555 463 558 438Z" fill="#A45E3D"/>
+
+  <path d="M850 391C844 366 853 346 871 335C896 320 922 317 949 320C973 323 993 336 1006 356C1018 374 1024 397 1021 419C1017 444 1006 469 985 486C963 503 938 508 912 502C887 496 867 481 855 460C842 438 837 413 850 391Z" fill="#5A3426"/>
+  <path d="M860 391C865 378 874 369 887 364C904 357 921 356 937 358C951 360 963 369 969 381C976 395 978 410 976 425C973 441 966 456 954 467C940 480 923 484 907 481C892 478 880 470 873 457C865 443 857 423 860 391Z" fill="#8E5338"/>
+
+  <path d="M287 583C316 571 348 565 380 567C405 569 431 578 450 590C469 602 491 618 520 626C548 634 584 632 611 625C641 617 673 601 708 593C745 585 776 586 807 593C838 601 865 615 903 620C941 625 985 622 1030 614C1079 605 1127 591 1184 577" stroke="#7ED6BE" stroke-width="10" stroke-linecap="round" opacity="0.34"/>
+
+  <circle cx="1048" cy="128" r="54" fill="#FFF5DA" opacity="0.7"/>
+  <circle cx="1100" cy="170" r="1.8" fill="#FFF5DA" opacity="0.8"/>
+  <circle cx="1082" cy="142" r="1.4" fill="#FFF5DA" opacity="0.65"/>
+  <circle cx="1132" cy="118" r="1.2" fill="#FFF5DA" opacity="0.6"/>
+</svg>

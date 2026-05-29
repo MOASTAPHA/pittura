@@ -55,7 +55,7 @@ const AuthContainer = ({
         </div>
       </div>
       
-      <div className="hidden md:block md:w-1/2 bg-cover bg-center" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1466442929976-97f336a657be?q=80&w=2834&auto=format&fit=crop')" }}>
+      <div className="hidden md:block md:w-1/2 bg-cover bg-center" style={{ backgroundImage: "url('/images/museum-bg.svg')" }}>
         <div className="h-full w-full bg-museum-brown/40 flex items-center justify-center p-12">
           <div className="text-white max-w-md">
             <h2 className="text-3xl font-bold mb-4">
