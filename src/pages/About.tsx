@@ -11,22 +11,22 @@ const About = () => {
     {
       name: { en: 'Sarah Al-Zahrani', ar: 'سارة الزهراني' },
       role: { en: 'Museum Director', ar: 'مديرة المتحف' },
-      image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop'
+      image: '/images/team-member.svg'
     },
     {
       name: { en: 'Ahmed Al-Nasser', ar: 'أحمد الناصر' },
       role: { en: 'Head Curator', ar: 'أمين المعرض الرئيسي' },
-      image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop'
+      image: '/images/team-member.svg'
     },
     {
       name: { en: 'Layla Mahmoud', ar: 'ليلى محمود' },
       role: { en: 'Digital Experience Designer', ar: 'مصممة التجربة الرقمية' },
-      image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop'
+      image: '/images/team-member.svg'
     },
     {
       name: { en: 'Khalid Al-Farsi', ar: 'خالد الفارسي' },
       role: { en: 'Technology Director', ar: 'مدير التكنولوجيا' },
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop'
+      image: '/images/team-member.svg'
     }
   ];
 
@@ -37,7 +37,7 @@ const About = () => {
       <div className="relative bg-[#3D2E1A] h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img 
-            src="https://images.unsplash.com/photo-1594850189283-898cd8b4add7?q=80&w=2071&auto=format&fit=crop" 
+            src="/images/museum-bg.svg" 
             alt="Museum hall" 
             className="w-full h-full object-cover opacity-20"
           />
@@ -92,7 +92,7 @@ const About = () => {
           >
             <div className="rounded-3xl overflow-hidden shadow-2xl relative">
               <img 
-                src="https://images.unsplash.com/photo-1549144674-042496a1c191?q=80&w=2070&auto=format&fit=crop" 
+                src="/images/museum-bg.svg" 
                 alt="Museum vision" 
                 className="w-full h-[500px] object-cover"
               />
