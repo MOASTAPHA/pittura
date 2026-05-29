@@ -11,22 +11,22 @@ const About = () => {
     {
       name: { en: 'Sarah Al-Zahrani', ar: 'سارة الزهراني' },
       role: { en: 'Museum Director', ar: 'مديرة المتحف' },
-      image: '/images/team-member.svg'
+      image: '/images/team-sarah.jpg'
     },
     {
       name: { en: 'Ahmed Al-Nasser', ar: 'أحمد الناصر' },
       role: { en: 'Head Curator', ar: 'أمين المعرض الرئيسي' },
-      image: '/images/team-member.svg'
+      image: '/images/team-ahmed.jpg'
     },
     {
       name: { en: 'Layla Mahmoud', ar: 'ليلى محمود' },
       role: { en: 'Digital Experience Designer', ar: 'مصممة التجربة الرقمية' },
-      image: '/images/team-member.svg'
+      image: '/images/team-layla.jpg'
     },
     {
       name: { en: 'Khalid Al-Farsi', ar: 'خالد الفارسي' },
       role: { en: 'Technology Director', ar: 'مدير التكنولوجيا' },
-      image: '/images/team-member.svg'
+      image: '/images/team-khalid.jpg'
     }
   ];
 
@@ -37,7 +37,7 @@ const About = () => {
       <div className="relative bg-[#3D2E1A] h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img 
-            src="/images/museum-bg.svg" 
+            src="/images/heritage-museum.png" 
             alt="Museum hall" 
             className="w-full h-full object-cover opacity-20"
           />
@@ -92,7 +92,7 @@ const About = () => {
           >
             <div className="rounded-3xl overflow-hidden shadow-2xl relative">
               <img 
-                src="/images/museum-bg.svg" 
+                src="/images/heritage-museum.png" 
                 alt="Museum vision" 
                 className="w-full h-[500px] object-cover"
               />
