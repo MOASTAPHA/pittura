@@ -68,7 +68,7 @@ export const currentAuctions = [
       en: 'A finely preserved dagger from the 18th century, complete with original sheath and engravings.',
       ar: 'خنجر محفوظ جيدًا من القرن الثامن عشر مع غمده الأصلي ونقوشه.'
     },
-    imageUrl: '/lovable-uploads/6dafc339-95be-44ac-82c8-a6c32f29c305.png',
+    imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Antique_African_dagger_%2812097663613%29.jpg',
     currentBid: '1,200',
     currency: 'SAR',
     endTime: new Date(Date.now() + 1000 * 60 * 60 * 24 * 3) // 3 days from now
@@ -80,7 +80,7 @@ export const currentAuctions = [
       en: 'Hand-painted ceramic vase with traditional geometric patterns.',
       ar: 'مزهرية خزفية مرسومة يدويًا بنقوش هندسية تقليدية.'
     },
-    imageUrl: '/lovable-uploads/12271c62-649b-453e-82a3-fd1ba85c0e30.png',
+    imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Tulip-shaped_ceramic_vase%2C_Karanovo_culture%2C_Bulgaria%2C_6th_millennium_BC.jpg',
     currentBid: '750',
     currency: 'SAR',
     endTime: new Date(Date.now() + 1000 * 60 * 60 * 24 * 5) // 5 days from now
@@ -92,7 +92,7 @@ export const currentAuctions = [
       en: 'Rare coin from a historic Arabian trade route, excellent condition.',
       ar: 'عملة نادرة من طريق تجاري عربي تاريخي بحالة ممتازة.'
     },
-    imageUrl: '/lovable-uploads/6d3199fd-50f9-47ef-b5c0-04cbc0b6e47b.png',
+    imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/India%2C_Chandragupta_II%2C_Gupta_Period_-_Coin_with_Figure_of_an_Archer_-_1977.62_-_Cleveland_Museum_of_Art.jpg',
     currentBid: '300',
     currency: 'SAR',
     endTime: new Date(Date.now() + 1000 * 60 * 60 * 12) // 12 hours from now

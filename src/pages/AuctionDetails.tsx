@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Navigation from '@/components/Navigation';
@@ -9,6 +10,10 @@ import { Button } from '@/components/ui/button';
 const AuctionDetails = () => {
   const { id } = useParams();
   const { isRTL } = useLanguage();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [id]);
 
   const auction = currentAuctions.find((a) => a.id === id);
 
@@ -36,7 +41,7 @@ const AuctionDetails = () => {
     <div dir={isRTL ? 'rtl' : 'ltr'} className="bg-[#F5F0E8] min-h-screen">
       <Navigation />
 
-      <div className="max-w-6xl mx-auto px-6 py-12">
+      <div className="max-w-6xl mx-auto px-6 pt-28 pb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
           <div className="rounded-3xl overflow-hidden shadow-2xl">
             <img src={auction.imageUrl} alt={isRTL ? auction.title.ar : auction.title.en} className="w-full h-[520px] object-cover" />
@@ -47,13 +52,17 @@ const AuctionDetails = () => {
             <p className="text-muted-foreground mb-6">{isRTL ? auction.description.ar : auction.description.en}</p>
 
             <div className="bg-white rounded-xl p-6 border border-[#E8E3D9] mb-6">
-              <div className="flex items-center justify-between mb-2">
+              <div className={`grid grid-cols-2 gap-4 items-center mb-4 ${isRTL ? 'text-right' : 'text-left'}`}>
                 <span className="text-muted-foreground">{isRTL ? 'السعر الحالي' : 'Current Bid'}</span>
-                <span className="text-xl font-bold">{auction.currentBid} {auction.currency}</span>
+                <span className={`text-xl font-bold ${isRTL ? 'text-left' : 'text-right'}`}>
+                  {auction.currentBid} {auction.currency}
+                </span>
               </div>
-              <div className="flex items-center justify-between">
+              <div className={`grid grid-cols-2 gap-4 items-center ${isRTL ? 'text-right' : 'text-left'}`}>
                 <span className="text-muted-foreground">{isRTL ? 'الوقت المتبقي' : 'Time Remaining'}</span>
-                <span className="font-bold text-[#B8945F]">{daysLeft}{isRTL ? ' يوم ' : 'd '}{hoursLeft}{isRTL ? ' ساعة' : 'h'}</span>
+                <span className={`font-bold text-[#B8945F] ${isRTL ? 'text-left' : 'text-right'}`}>
+                  {daysLeft}{isRTL ? ' يوم ' : 'd '}{hoursLeft}{isRTL ? ' ساعة' : 'h'}
+                </span>
               </div>
             </div>
 

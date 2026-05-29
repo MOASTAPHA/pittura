@@ -93,21 +93,23 @@ const Auctions = () => {
                         {isRTL ? auction.description.ar : auction.description.en}
                       </p>
                       
-                      <div className="bg-secondary/30 rounded-lg p-4 mb-6">
-                        <div className="flex justify-between mb-2">
-                          <span className="text-muted-foreground text-sm">
+                      <div className="bg-secondary/30 rounded-lg p-4 mb-6" dir="ltr">
+                        <div className="flex items-center justify-between gap-4 mb-2">
+                          <span className="font-bold text-right text-[#3D2E1A]">
+                            {auction.currentBid} {auction.currency}
+                          </span>
+                          <span className={`text-muted-foreground text-sm text-right ${isRTL ? '' : 'ml-auto'}`}>
                             {isRTL ? 'المزايدة الحالية' : 'Current Bid'}
                           </span>
-                          <span className="font-bold">{auction.currentBid} {auction.currency}</span>
                         </div>
-                        
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground text-sm">
-                            {isRTL ? 'الوقت المتبقي' : 'Time Remaining'}
-                          </span>
-                          <span className="font-bold text-primary">
-                            {daysLeft}{isRTL ? ' يوم ' : 'd '} 
+
+                        <div className="flex items-center justify-between gap-4">
+                          <span className="font-bold text-primary text-right">
+                            {daysLeft}{isRTL ? ' يوم ' : 'd '}
                             {hoursLeft}{isRTL ? ' ساعة' : 'h'}
+                          </span>
+                          <span className={`text-muted-foreground text-sm text-right ${isRTL ? '' : 'ml-auto'}`}>
+                            {isRTL ? 'الوقت المتبقي' : 'Time Remaining'}
                           </span>
                         </div>
                       </div>
